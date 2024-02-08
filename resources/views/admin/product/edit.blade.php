@@ -189,7 +189,7 @@
             <div class="card card-primary">
               <div class="card-body">
                   <div class="form-group">
-                    <img src="{{asset('public/files/product/'.$product->thumbnail)}}" style="height: 50px; width:50px;">
+                    <img src="{{asset('files/product/'.$product->thumbnail)}}" style="height: 50px; width:50px;">
                     <label for="exampleInputEmail1">Main Thumbnail <span class="text-danger">*</span> </label><br>
                     <input type="file" name="thumbnail"  accept="image/*" class="dropify">
                     <input type="hidden" name="old_thumbnail" value="{{ $product->thumbnail }}" >
@@ -211,7 +211,7 @@
                           <div class="row" >
                            @foreach($images as $key => $image)
                              <div class="col-md-4" >
-                                <img alt="" src="{{asset('public/files/product/'.$image)}}" style="width: 100px; height: 80px; padding: 10px;"/>
+                                <img alt="" src="{{asset('files/product/'.$image)}}" style="width: 100px; height: 80px; padding: 10px;"/>
                                 <input type="hidden" name="old_images[]" value="{{ $image }}">
                                 <button type="button" class="remove-files" style="border: none;">X</button>
                              </div>
@@ -257,7 +257,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://jeremyfagis.github.io/dropify/dist/js/dropify.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://jeremyfagis.github.io/dropify/dist/css/dropify.min.css">
-<script src="{{ asset('public/backend') }}/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+<script src="{{ asset('backend') }}/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
 
 
 <script type="text/javascript">

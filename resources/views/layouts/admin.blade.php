@@ -84,6 +84,52 @@
 
 <script type="text/javascript" src="{{ asset('/backend/plugins/toastr/toastr.min.js') }}"></script>
 <script src="{{ asset('/backend/plugins/sweetalert/sweetalert.min.js') }}"></script>
+<script>
+ 
+  $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+  });
+  $(document).ready(function() {
+
+    
+function getChild() {
+  var id = $("#subcategory_id").val();
+  var url = $("#subcategory_id").data('url');
+  var newurl = url + "/ajax/child/category/" + id;
+  console.log(newurl);
+
+  $.ajax({
+      type: "GET",
+      url: newurl,
+      cache: false,
+      dataType: "html",
+      success: function(data) {
+          $("#childcategory_id").html(data);
+      }
+  });
+}
+$(document).on("change", "#subcategory_id", function(e) {
+    e.preventDefault();
+
+    var id = $(this).val();
+    
+    var url = $(this).data('url');
+    var newurl = url + "/ajax/child/category/"+id;
+    $.ajax({
+        type: "GET",
+        url: newurl,
+        cache: false,
+        dataType: "html",
+        success: function(data) {
+          getChild();
+            console.log(data);
+        }
+    });
+  });
+});
+</script>
 
     <script>  
          $(document).on("click", "#delete", function(e){
@@ -168,7 +214,7 @@
 <script>
   $(function () {
     // Summernote
-    $('.textarea').summernote()
+    // $('.textarea').summernote()
   })
 </script>
 <script src="{{ asset('') }}/backend/plugins/print_this/printThis.js"></script> 

@@ -71,7 +71,7 @@
                   <div class="row">
                     <div class="form-group col-lg-6">
                       <label for="exampleInputEmail1">Category/Subcategory <span class="text-danger">*</span> </label>
-                      <select class="form-control" name="subcategory_id" id="subcategory_id">
+                      <select class="form-control" name="subcategory_id" id="subcategory_id" data-url="{{url('/')}}">
                         <option disabled="" selected="">==choose category==</option>
                         @foreach($category as $row)
                            @php 
@@ -87,9 +87,10 @@
                     <div class="form-group col-lg-6">
                       <label for="exampleInputPassword1">Child category<span class="text-danger">*</span> </label>
                       <select class="form-control" name="childcategory_id" id="childcategory_id">
-                      <option disabled="" selected="">==choose childcategory==</option>
-                      
-                         
+                        @php 
+                            $childCategory=DB::table('childcategories')->get();
+                        @endphp
+                          <option value="">select parent</option>
                       </select>
                     </div>
                   </div>
@@ -140,7 +141,7 @@
                       <label for="exampleInputEmail1">Warehouse <span class="text-danger">*</span> </label>
                       <select class="form-control" name="warehouse">
                         @foreach($warehosue as $row)
-                         <option value="{{ $row->warehouse_name }}">{{ $row->warehouse_name }}</option>
+                         <option value="{{ $row->id }}">{{ $row->warehouse_name }}</option>
                         @endforeach 
                       </select>
                     </div>
@@ -242,7 +243,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://jeremyfagis.github.io/dropify/dist/js/dropify.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://jeremyfagis.github.io/dropify/dist/css/dropify.min.css">
-<script src="{{ asset('public/backend') }}/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+<script src="{{ asset('backend') }}/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
 
 
 <script type="text/javascript">
@@ -252,19 +253,22 @@
     });
 
      //ajax request send for collect childcategory
-     $("#subcategory_id").change(function(){
-      var id = $(this).val();
-      $.ajax({
-           url: "{{ url("/get-child-category/") }}/"+id,
-           type: 'get',
-           success: function(data) {
-                $('select[name="childcategory_id"]').empty();
-                   $.each(data, function(key,data){
-                      $('select[name="childcategory_id"]').append('<option value="'+ data.id +'">'+ data.childcategory_name +'</option>');
-                });
-           }
-        });
-     });
+    //  $("#subcategory_id").change(function(){
+    //   var id = $(this).val();
+
+    //   console.log(id);
+      
+    //   $.ajax({
+    //        url: "{{ url("/get-child-category/") }}/"+id,
+    //        type: 'get',
+    //        success: function(data) {
+    //             $('select[name="childcategory_id"]').empty();
+    //                $.each(data, function(key,data){
+    //                   $('select[name="childcategory_id"]').append('<option value="'+ data.id +'">'+ data.childcategory_name +'</option>');
+    //             });
+    //        }
+    //     });
+    //  });
 
 
 
@@ -283,11 +287,10 @@
             var button_id = $(this).attr("id");   
             $('#row'+button_id+'').remove();  
        });  
-     }); 
-
- 
+  }); 
 
 
+  
 
 </script>
 @endsection

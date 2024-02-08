@@ -7,7 +7,11 @@ use Illuminate\Http\Request;
 use DB;
 use Auth;
 use Illuminate\Support\Str;
-use Image;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\Exceptions\DecoderException;
+use Intervention\Image\Decoders\Base64ImageDecoder;
+use Intervention\Image\Decoders\FilePathImageDecoder;
 use DataTables;
 use App\Models\Product;
 use App\Models\Category;
@@ -25,7 +29,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $imgurl='public/files/product';
+            $imgurl='files/product';
 
             $product="";
               $query=DB::table('products')->leftJoin('categories','products.category_id','categories.id')
@@ -156,18 +160,25 @@ class ProductController extends Controller
        $data['date']=date('d-m-Y');
        $data['month']=date('F');
        //single thumbnail
-       if ($request->thumbnail) {
-             $thumbnail=$request->thumbnail;
-             $photoname=$slug.'.'.$thumbnail->getClientOriginalExtension();
-             Image::make($thumbnail)->resize(600,600)->save('public/files/product/'.$photoname);
-             $data['thumbnail']=$photoname;   // public/files/product/plus-point.jpg
+       
+       if ($request->hasfile('thumbnail')) {
+            $manager = new ImageManager(new Driver());
+            $image = $request->file('thumbnail');
+            $photoname=$slug.'.'.$image->getClientOriginalExtension();
+            $image = $manager->read($image);
+            $image = $image->resize(600,600);
+            $image->save('files/product/'.$photoname);
+            $data['thumbnail']=$photoname;   // public/files/product/plus-point.jpg
+
        }
        //multiple images
        $images = array();
        if($request->hasFile('images')){
+        $manager = new ImageManager(new Driver());
            foreach ($request->file('images') as $key => $image) {
                $imageName= hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
-               Image::make($image)->resize(600,600)->save('public/files/product/'.$imageName);
+               $image = $manager->read($image);
+               $image = $image->resize(600,600)->save('files/product/'.$imageName);
                array_push($images, $imageName);
            }
            $data['images'] = json_encode($images);
@@ -244,7 +255,8 @@ class ProductController extends Controller
            
              $thumbnail=$request->thumbnail;
              $photoname=$slug.'.'.$thumbnail->getClientOriginalExtension();
-             Image::make($thumbnail)->resize(600,600)->save('public/files/product/'.$photoname);
+             $image->move('files/product/',$photoname);
+            //  Image::make($thumbnail)->resize(600,600)->save('public/files/product/'.$photoname);
              $data['thumbnail']=$photoname;   // public/files/product/plus-point.jpg   
         }
 
@@ -262,7 +274,8 @@ class ProductController extends Controller
         if($request->hasFile('images')){
             foreach ($request->file('images') as $key => $image) {
                 $imageName= hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
-                Image::make($image)->resize(600,600)->save('public/files/product/'.$imageName);
+                $image->move('files/product/',$photoname);
+                // Image::make($image)->resize(600,600)->save('public/files/product/'.$imageName);
                 array_push($images, $imageName);
             }
             $data['images'] = json_encode($images);
@@ -322,15 +335,15 @@ class ProductController extends Controller
     {
 
         $product=DB::table('products')->where('id',$id)->first();  //product data get
-        if (File::exists('public/files/product/'.$product->thumbnail)) {
-              FIle::delete('public/files/product/'.$product->thumbnail);
+        if (File::exists('files/product/'.$product->thumbnail)) {
+              FIle::delete('files/product/'.$product->thumbnail);
         }
 
         $images=json_decode($product->images,true);
         if (isset($images)) {
              foreach($images as $key => $image){
-                if (File::exists('public/files/product/'.$image)) {
-                    FIle::delete('public/files/product/'.$image);
+                if (File::exists('files/product/'.$image)) {
+                    FIle::delete('files/product/'.$image);
                 }
              }
         }

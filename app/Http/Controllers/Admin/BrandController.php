@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use DB;
 use DataTables;
 use Illuminate\Support\Str;
-use Image;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 use File;
 
 class BrandController extends Controller
@@ -55,10 +56,12 @@ class BrandController extends Controller
     	$data['brand_slug']=Str::slug($request->brand_name, '-');
         $data['front_page']=$request->front_page;
     	 //working with image
-    	  $photo=$request->brand_logo;
+		 
+		  $manager = new ImageManager(new Driver());
+		  $photo = $request->file('brand_logo');
     	  $photoname=uniqid().'.'.$photo->getClientOriginalExtension();
-    	  $photo->move('files/brand/',$photoname);  //without image intervention
-    	// Image::make($photo)->resize(240,120)->save('/files/brand/'.$photoname);  //image intervention
+		  $photo = $manager->read($photo);
+            $photo = $photo->resize(240,120)->save('files/brand/'.$photoname);
 
     	$data['brand_logo']='files/brand/'.$photoname;   // public/files/brand/plus-point.jpg
     	DB::table('brands')->insert($data);

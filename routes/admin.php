@@ -1,17 +1,21 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
+
 Route::get('/admin-login', [App\Http\Controllers\Auth\LoginController::class, 'adminLogin'])->name('admin.login');
+
+
+Route::get('/ajax/child/category/{id}', [App\Http\Controllers\AjaxController::class, 'childCategory'])->name('child.ajax');
 
 
 Route::group(['namespace'=>'App\Http\Controllers\Admin', 'middleware' =>'is_admin'], function(){
 	Route::get('/admin/home','AdminController@admin')->name('admin.home');
 	Route::get('/admin/logout','AdminController@logout')->name('admin.logout');
-	Route::get('/admin/password/change','AdminController@PasswordChange')->name('admin.password.change');
+    Route::get('/admin/password/change','AdminController@PasswordChange')->name('admin.password.change');
     Route::post('/admin/password/update','AdminController@PasswordUpdate')->name('admin.password.update');
 
-
-	//all category route
+	//category routes
 	Route::group(['prefix'=>'category'], function(){
 		Route::get('/','CategoryController@index')->name('category.index');
 		Route::post('/store','CategoryController@store')->name('category.store');
@@ -19,6 +23,7 @@ Route::group(['namespace'=>'App\Http\Controllers\Admin', 'middleware' =>'is_admi
 		Route::get('/edit/{id}','CategoryController@edit');
 		Route::post('/update','CategoryController@update')->name('category.update');
 	});
+
 	//global route
 	Route::get('/get-child-category/{id}','CategoryController@GetChildCategory');
 
@@ -30,22 +35,7 @@ Route::group(['namespace'=>'App\Http\Controllers\Admin', 'middleware' =>'is_admi
 		Route::get('/edit/{id}','SubcategoryController@edit');
 		Route::post('/update','SubcategoryController@update')->name('subcategory.update');
 	});
-    //childcategory routes
-	Route::group(['prefix'=>'childcategory'], function(){
-		Route::get('/','ChildcategoryController@index')->name('childcategory.index');
-		Route::post('/store','ChildcategoryController@store')->name('childcategory.store');
-		Route::get('/delete/{id}','ChildcategoryController@destroy')->name('childcategory.delete');
-		Route::get('/edit/{id}','ChildcategoryController@edit');
-		Route::post('/update','ChildcategoryController@update')->name('childcategory.update');
-	});
-	//Brand Routes
-	Route::group(['prefix'=>'brand'], function(){
-		Route::get('/','BrandController@index')->name('brand.index');
-		Route::post('/store','BrandController@store')->name('brand.store');
-		Route::get('/delete/{id}','BrandController@destroy')->name('brand.delete');
-		Route::get('/edit/{id}','BrandController@edit');
-		Route::post('/update','BrandController@update')->name('brand.update');
-	});
+
 	//warehouse routes
 	Route::group(['prefix'=>'warehouse'], function(){
 		Route::get('/','WarehouseController@index')->name('warehouse.index');
@@ -54,6 +44,25 @@ Route::group(['namespace'=>'App\Http\Controllers\Admin', 'middleware' =>'is_admi
 		Route::get('/edit/{id}','WarehouseController@edit');
 		Route::post('/update','WarehouseController@update')->name('warehouse.update');
 	});
+
+	//childcategory routes
+	Route::group(['prefix'=>'childcategory'], function(){
+		Route::get('/','ChildcategoryController@index')->name('childcategory.index');
+		Route::post('/store','ChildcategoryController@store')->name('childcategory.store');
+		Route::get('/delete/{id}','ChildcategoryController@destroy')->name('childcategory.delete');
+		Route::get('/edit/{id}','ChildcategoryController@edit');
+		Route::post('/update','ChildcategoryController@update')->name('childcategory.update');
+	});
+
+	//Brand Routes
+	Route::group(['prefix'=>'brand'], function(){
+		Route::get('/','BrandController@index')->name('brand.index');
+		Route::post('/store','BrandController@store')->name('brand.store');
+		Route::get('/delete/{id}','BrandController@destroy')->name('brand.delete');
+		Route::get('/edit/{id}','BrandController@edit');
+		Route::post('/update','BrandController@update')->name('brand.update');
+	});
+
 	//product routes
 	Route::group(['prefix'=>'product'], function(){
 		Route::get('/','ProductController@index')->name('product.index');
@@ -79,7 +88,7 @@ Route::group(['namespace'=>'App\Http\Controllers\Admin', 'middleware' =>'is_admi
 		Route::post('/update','CouponController@update')->name('update.coupon');
 	});
 
-	//Campaign Routes
+	// //Campaign Routes
 	Route::group(['prefix'=>'campaign'], function(){
 		Route::get('/','CampaignController@index')->name('campaign.index');
 		Route::post('/store','CampaignController@store')->name('campaign.store');
@@ -88,25 +97,26 @@ Route::group(['namespace'=>'App\Http\Controllers\Admin', 'middleware' =>'is_admi
 		Route::post('/update','CampaignController@update')->name('campaign.update');
 	});
 
-	//__campaign product routes__//
-	Route::group(['prefix'=>'campaign-product'], function(){
-		Route::get('/{campaign_id}','CampaignController@campaignProduct')->name('campaign.product');
-		Route::get('/add/{id}/{campaign_id}','CampaignController@ProductAddToCampaign')->name('add.product.to.campaign');
-		Route::get('/list/{campaign_id}','CampaignController@ProductListCampaign')->name('campaign.product.list');
-		Route::get('/remove/{id}','CampaignController@RemoveProduct')->name('product.remove.campaign');
-		// Route::post('/update','CampaignController@update')->name('campaign.update');
-	});
+	// //__campaign product routes__//
+	// Route::group(['prefix'=>'campaign-product'], function(){
+	// 	Route::get('/{campaign_id}','CampaignController@campaignProduct')->name('campaign.product');
+	// 	Route::get('/add/{id}/{campaign_id}','CampaignController@ProductAddToCampaign')->name('add.product.to.campaign');
+	// 	Route::get('/list/{campaign_id}','CampaignController@ProductListCampaign')->name('campaign.product.list');
+	// 	Route::get('/remove/{id}','CampaignController@RemoveProduct')->name('product.remove.campaign');
+	// 	// Route::post('/update','CampaignController@update')->name('campaign.update');
+	// });
 
-	//__order 
-	Route::group(['prefix'=>'order'], function(){
-		Route::get('/','OrderController@index')->name('admin.order.index');
-		// Route::post('/store','CampaignController@store')->name('campaign.store');
-		Route::get('/admin/edit/{id}','OrderController@Editorder');
-		Route::post('/update/order/status','OrderController@updateStatus')->name('update.order.status');
-		Route::get('/view/admin/{id}','OrderController@ViewOrder');
-		Route::get('/delete/{id}','OrderController@delete')->name('order.delete');
+	// //__order 
+	// Route::group(['prefix'=>'order'], function(){
+	// 	Route::get('/','OrderController@index')->name('admin.order.index');
+	// 	// Route::post('/store','CampaignController@store')->name('campaign.store');
+	// 	Route::get('/admin/edit/{id}','OrderController@Editorder');
+	// 	Route::post('/update/order/status','OrderController@updateStatus')->name('update.order.status');
+	// 	Route::get('/view/admin/{id}','OrderController@ViewOrder');
+	// 	Route::get('/delete/{id}','OrderController@delete')->name('order.delete');
 		 
-	});
+	// });
+
 	//setting Routes
 	Route::group(['prefix'=>'setting'], function(){
 		//seo setting
@@ -126,7 +136,7 @@ Route::group(['namespace'=>'App\Http\Controllers\Admin', 'middleware' =>'is_admi
 			Route::post('/update/{id}','SettingController@WebsiteUpdate')->name('website.setting.update');
 	    });
 
-	    //payment setting
+	    //website setting
 		Route::group(['prefix'=>'payment-gateway'], function(){
 			Route::get('/','SettingController@PaymentGateway')->name('payment.gateway');
 			Route::post('/update-aamarpay','SettingController@AamarpayUpdate')->name('update.aamarpay');
@@ -155,42 +165,43 @@ Route::group(['namespace'=>'App\Http\Controllers\Admin', 'middleware' =>'is_admi
 
 
 	    //Ticket 
-		Route::group(['prefix'=>'ticket'], function(){
-			Route::get('/','TicketController@index')->name('ticket.index');
-			Route::get('/ticket/show/{id}','TicketController@show')->name('admin.ticket.show');
-			Route::post('/ticket/reply','TicketController@ReplyTicket')->name('admin.store.reply');
-			Route::get('/ticket/close/{id}','TicketController@CloseTicket')->name('admin.close.ticket');
-			Route::delete('/ticket/delete/{id}','TicketController@destroy')->name('admin.ticket.delete');
+		// Route::group(['prefix'=>'ticket'], function(){
+		// 	Route::get('/','TicketController@index')->name('ticket.index');
+		// 	Route::get('/ticket/show/{id}','TicketController@show')->name('admin.ticket.show');
+		// 	Route::post('/ticket/reply','TicketController@ReplyTicket')->name('admin.store.reply');
+		// 	Route::get('/ticket/close/{id}','TicketController@CloseTicket')->name('admin.close.ticket');
+		// 	Route::delete('/ticket/delete/{id}','TicketController@destroy')->name('admin.ticket.delete');
 			
-	    });
+	    // });
 
-		//Blog category
-	    Route::group(['prefix'=>'blog-category'], function(){
-			Route::get('/','BlogController@index')->name('admin.blog.category');
-			Route::post('/store','BlogController@store')->name('blog.category.store');
-			Route::get('/delete/{id}','BlogController@destroy')->name('blog.category.delete');
-			Route::get('/edit/{id}','BlogController@edit');
-			Route::post('/update','BlogController@update')->name('blog.category.update');
-		});
+		// //Blog category
+	    // Route::group(['prefix'=>'blog-category'], function(){
+		// 	Route::get('/','BlogController@index')->name('admin.blog.category');
+		// 	Route::post('/store','BlogController@store')->name('blog.category.store');
+		// 	Route::get('/delete/{id}','BlogController@destroy')->name('blog.category.delete');
+		// 	Route::get('/edit/{id}','BlogController@edit');
+		// 	Route::post('/update','BlogController@update')->name('blog.category.update');
+		// });
 
-	    //__role create__
-	    Route::group(['prefix'=>'role'], function(){
-			Route::get('/','RoleController@index')->name('manage.role');
-			Route::get('/create','RoleController@create')->name('create.role');
-			Route::post('/store','RoleController@store')->name('store.role');
-			Route::get('/delete/{id}','RoleController@destroy')->name('role.delete');
-			Route::get('/edit/{id}','RoleController@edit')->name('role.edit');
-			Route::post('/update','RoleController@update')->name('update.role');
-		});
+	    // //__role create__
+	    // Route::group(['prefix'=>'role'], function(){
+		// 	Route::get('/','RoleController@index')->name('manage.role');
+		// 	Route::get('/create','RoleController@create')->name('create.role');
+		// 	Route::post('/store','RoleController@store')->name('store.role');
+		// 	Route::get('/delete/{id}','RoleController@destroy')->name('role.delete');
+		// 	Route::get('/edit/{id}','RoleController@edit')->name('role.edit');
+		// 	Route::post('/update','RoleController@update')->name('update.role');
+		// });
 
-	    //__report routes__//
-	    Route::group(['prefix'=>'report'], function(){
-			Route::get('/order','OrderController@Reportindex')->name('report.order.index');
-			Route::get('/order/print','OrderController@ReportOrderPrint')->name('report.order.print');
+	    // //__report routes__//
+	    // Route::group(['prefix'=>'report'], function(){
+		// 	Route::get('/order','OrderController@Reportindex')->name('report.order.index');
+		// 	Route::get('/order/print','OrderController@ReportOrderPrint')->name('report.order.print');
 			
-		});
+		// });
 
 	});
-
+	// Route::get('/ajax/child/category/{id}','AjaxController@childCategory')->name('child.ajax');
  });
+
  
