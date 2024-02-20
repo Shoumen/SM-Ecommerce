@@ -1,8 +1,8 @@
 @extends('layouts.app')
 @section('content')
-<link rel="stylesheet" type="text/css" href="{{ asset('/frontend') }}/styles/product_styles.css">
-<link rel="stylesheet" type="text/css" href="{{ asset('/frontend') }}/styles/product_responsive.css">
-<script src="{{ asset('/js/share.js') }}"></script>
+<link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/styles/product_styles.css">
+<link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/styles/product_responsive.css">
+<script src="{{ asset('js/share.js') }}"></script>
 
 @include('layouts.front_partial.collaps_nav')
 
@@ -12,10 +12,20 @@
 }
 </style>
 
+@php
+ $review_5=App\Models\Review::where('product_id',$product->id)->where('rating',5)->count();
+ $review_4=App\Models\Review::where('product_id',$product->id)->where('rating',4)->count();
+ $review_3=App\Models\Review::where('product_id',$product->id)->where('rating',3)->count();
+ $review_2=App\Models\Review::where('product_id',$product->id)->where('rating',2)->count();
+ $review_1=App\Models\Review::where('product_id',$product->id)->where('rating',1)->count();
+
+ $sum_rating=App\Models\Review::where('product_id',$product->id)->sum('rating');
+ $count_rating=App\Models\Review::where('product_id',$product->id)->count('rating');
 
  
 
 
+@endphp
 <!-- Single Product -->
 
 <div class="single_product">
@@ -34,8 +44,8 @@
 				<ul class="image_list">
 				@isset($images)	
 					@foreach($images as $key => $image)
-					<li data-image="{{ asset('/files/product/'.$image) }}">
-						<img src="{{ asset('/files/product/'.$image) }}" alt="">
+					<li data-image="{{ asset('files/product/'.$image) }}">
+						<img src="{{ asset('files/product/'.$image) }}" alt="">
 					</li>
 					@endforeach
 				@endisset	
@@ -45,7 +55,7 @@
 			<!-- Selected Image -->
 			<div class="col-lg-4 order-lg-2 order-1">
 
-				<div class="image_selected"><img src="{{ asset('/files/product/'.$product->thumbnail) }}" alt=""></div>
+				<div class="image_selected"><img src="{{ asset('files/product/'.$product->thumbnail) }}" alt=""></div>
 			</div>
 
 			<!-- Description -->
@@ -60,39 +70,39 @@
 					<div class="product_category"><b> Unit: {{ $product->unit }} </b></div>
 					 {{-- review star --}}
 					 <div>
-						
-					 	
+					@if($sum_rating !=NULL)	
+					 	@if(intval($sum_rating/$count_rating) == 5)
 					 	<span class="fa fa-star checked"></span>
 					 	<span class="fa fa-star checked"></span>
 					 	<span class="fa fa-star checked"></span>
 					 	<span class="fa fa-star checked"></span>
 					 	<span class="fa fa-star checked"></span>
-					 	
+					 	@elseif(intval($sum_rating/$count_rating) >= 4 && intval($sum_rating/5) <$count_rating)
 					 	<span class="fa fa-star checked"></span>
 					 	<span class="fa fa-star checked"></span>
 					 	<span class="fa fa-star checked"></span>
 					 	<span class="fa fa-star checked"></span>
 					 	<span class="fa fa-star "></span>
-					 	
+					 	@elseif(intval($sum_rating/$count_rating) >= 3 && intval($sum_rating/5) <$count_rating)
 					 	<span class="fa fa-star checked"></span>
 					 	<span class="fa fa-star checked"></span>
 					 	<span class="fa fa-star checked"></span>
 					 	<span class="fa fa-star "></span>
 					 	<span class="fa fa-star "></span>
-					 	
+					 	@elseif(intval($sum_rating/$count_rating) >= 2 && intval($sum_rating/5) <$count_rating)
 					 	<span class="fa fa-star checked"></span>
 					 	<span class="fa fa-star checked"></span>
 					 	<span class="fa fa-star "></span>
 					 	<span class="fa fa-star "></span>
 					 	<span class="fa fa-star "></span>
-					 	
+					 	@else
 					 	<span class="fa fa-star checked"></span>
 					 	<span class="fa fa-star "></span>
 					 	<span class="fa fa-star "></span>
 					 	<span class="fa fa-star "></span>
 					 	<span class="fa fa-star "></span>
-					 	
-					 	
+					 	@endif
+					@endif 	
 					 </div>
 					<div><br>
 						 
@@ -181,7 +191,7 @@
 			<div class="col-lg-3 order-3" style="border-left: 1px solid grey; padding-left: 10px;">
 					
 				<strong class="text-muted">Pickup Point of this product</strong><br>
-				<i class="fa fa-map">  </i><hr><br>
+				<i class="fa fa-map"> {{ $product->pickuppont->pickup_point_name }} </i><hr><br>
 				<strong class="text-muted"> Home Delivery :</strong><br>
 				 -> (4-8) days after the order placed.<br> 
 				 -> Cash on Delivery Available.
@@ -222,39 +232,39 @@
 					<div class="row">
 						<div class="col-lg-3">
 							Average Review of  {{ $product->name }}:<br>
-						
-							
+						@if($sum_rating !=NULL)
+							@if(intval($sum_rating/$count_rating) == 5)
 							<span class="fa fa-star checked"></span>
 							<span class="fa fa-star checked"></span>
 							<span class="fa fa-star checked"></span>
 							<span class="fa fa-star checked"></span>
 							<span class="fa fa-star checked"></span>
-							
+							@elseif(intval($sum_rating/$count_rating) >= 4 && intval($sum_rating/5) <$count_rating)
 							<span class="fa fa-star checked"></span>
 							<span class="fa fa-star checked"></span>
 							<span class="fa fa-star checked"></span>
 							<span class="fa fa-star checked"></span>
 							<span class="fa fa-star "></span>
-							
+							@elseif(intval($sum_rating/$count_rating) >= 3 && intval($sum_rating/5) <$count_rating)
 							<span class="fa fa-star checked"></span>
 							<span class="fa fa-star checked"></span>
 							<span class="fa fa-star checked"></span>
 							<span class="fa fa-star "></span>
 							<span class="fa fa-star "></span>
-							
+							@elseif(intval($sum_rating/$count_rating) >= 2 && intval($sum_rating/5) <$count_rating)
 							<span class="fa fa-star checked"></span>
 							<span class="fa fa-star checked"></span>
 							<span class="fa fa-star "></span>
 							<span class="fa fa-star "></span>
 							<span class="fa fa-star "></span>
-							
+							@else
 							<span class="fa fa-star checked"></span>
 							<span class="fa fa-star "></span>
 							<span class="fa fa-star "></span>
 							<span class="fa fa-star "></span>
 							<span class="fa fa-star "></span>
-							
-							
+							@endif
+						@endif	
 						</div>
 						<div class="col-md-3">
 							{{-- all review show --}}
@@ -265,7 +275,7 @@
 											<span class="fa fa-star checked"></span>
 											<span class="fa fa-star checked"></span>
 											<span class="fa fa-star checked"></span>
-											<span> </span>
+											<span> Total {{ $review_5 }} </span>
 										</div>
 
 										<div>
@@ -274,7 +284,7 @@
 											<span class="fa fa-star checked"></span>
 											<span class="fa fa-star checked"></span>
 											<span class="fa fa-star "></span>
-											<span>  </span>
+											<span> Total {{ $review_4 }} </span>
 										</div>
 
 										<div>
@@ -283,7 +293,7 @@
 											<span class="fa fa-star checked"></span>
 											<span class="fa fa-star "></span>
 											<span class="fa fa-star "></span>
-											<span>  </span>
+											<span> Total {{ $review_3 }} </span>
 										</div>
 
 										<div>
@@ -292,7 +302,7 @@
 											<span class="fa fa-star "></span>
 											<span class="fa fa-star "></span>
 											<span class="fa fa-star "></span>
-											<span>  </span>
+											<span> Total {{ $review_2 }} </span>
 										</div>
 
 										<div>
@@ -301,13 +311,13 @@
 											<span class="fa fa-star "></span>
 											<span class="fa fa-star "></span>
 											<span class="fa fa-star "></span>
-											<span> </span>
+											<span> Total {{ $review_1 }} </span>
 										</div>
 										
 									
 						</div>
 						<div class="col-lg-6">
-							<form action="" method="post">
+							<form action="{{ route('store.review') }}" method="post">
 								@csrf
 							  <div class="form-group">
 							    <label for="details">Write Your Review</label>
@@ -339,14 +349,14 @@
 					{{-- all review of this product --}}	
 						<strong>All review of {{ $product->name }}</strong> <hr>
 					<div class="row">
-						
+						@foreach($review as $row)
 							<div class="card col-lg-5 m-2">
 						 	 <div class="card-header">
-						 	 		
+						 	 		{{ $row->user->name }}  ( {{ date('d F , Y'), strtotime($row->review_date) }} )
 						 	 </div>
 						 	 <div class="card-body">
-						 	 		
-						 	 		 
+						 	 		{{ $row->review }}
+						 	 		  @if($row->rating==5)
 						 	 		  <div>
 											<span class="fa fa-star checked"></span>
 											<span class="fa fa-star checked"></span>
@@ -354,32 +364,32 @@
 											<span class="fa fa-star checked"></span>
 											<span class="fa fa-star checked"></span>
 										</div>
-										
+										@elseif($row->rating==4)
 										<div>
 											<span class="fa fa-star checked"></span>
 											<span class="fa fa-star checked"></span>
 											<span class="fa fa-star checked"></span>
 											<span class="fa fa-star checked"></span>
 										</div>
-										
+										@elseif($row->rating==3)
 										<div>
 											<span class="fa fa-star checked"></span>
 											<span class="fa fa-star checked"></span>
 											<span class="fa fa-star checked"></span>
 										</div>
-										
+										@elseif($row->rating==2)
 										<div>
 											<span class="fa fa-star checked"></span>
 											<span class="fa fa-star checked"></span>
 										</div>
-										
+										@elseif($row->rating==1)
 										<div>
 											<span class="fa fa-star checked"></span>
 										</div>
-										
+										@endif
 						 	 </div>
 						 </div>
-					 
+					  @endforeach
 					</div>	
 				</div>
 
@@ -412,27 +422,27 @@
 					<!-- Recently Viewed Slider -->
 
 					<div class="owl-carousel owl-theme viewed_slider">
-						
+					 @foreach($related_product as $row)		
 						<!-- Recently Viewed Item -->
 						<div class="owl-item">
 							<div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
-								<div class="viewed_image"><img src="" alt=""></div>
+								<div class="viewed_image"><img src="{{ asset('public/files/product/'.$row->thumbnail) }}" alt="{{ $row->name }}"></div>
 								<div class="viewed_content text-center">
-								
-		             <div class="viewed_price">{{ $setting->currency }}</div>
-		           
-		             <div class="viewed_price">{{ $setting->currency }} <span>{{ $setting->currency }}</span></div>
-		          
+								@if($row->discount_price==NULL)
+		             <div class="viewed_price">{{ $setting->currency }}{{ $row->selling_price }}</div>
+		            @else
+		             <div class="viewed_price">{{ $setting->currency }}{{ $row->discount_price }} <span>{{ $setting->currency }}{{ $row->selling_price }}</span></div>
+		            @endif
 
 									
-									<div class="viewed_name"><a href=""></a></div>
+									<div class="viewed_name"><a href="{{ route('product.details',$row->slug) }}">{{ substr($row->name, 0, 50) }}</a></div>
 								</div>
 								<ul class="item_marks">
 									<li class="item_mark item_discount">new</li>
 								</ul>
 							</div>
 						</div>
-						
+					 @endforeach	
 					</div>
 
 				</div>

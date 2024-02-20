@@ -17,6 +17,7 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Subcategory;
 use App\Models\Brand;
+use App\Models\Pickuppont;
 use File;
 class ProductController extends Controller
 {

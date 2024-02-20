@@ -11,7 +11,7 @@ Route::get('/login',function(){
 })->name('login');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-// Route::get('/customer/logout', [App\Http\Controllers\HomeController::class, 'logout'])->name('customer.logout');
+Route::get('/customer/logout', [App\Http\Controllers\HomeController::class, 'logout'])->name('customer.logout');
 
 //frontend all routes here----------
 Route::group(['namespace'=>'App\Http\Controllers\Front'], function(){
@@ -47,18 +47,18 @@ Route::group(['namespace'=>'App\Http\Controllers\Front'], function(){
         Route::get('/childcategory/product/{id}','IndexController@ChildcategoryWiseProduct')->name('childcategorywise.product');
         Route::get('/brandwise/product/{id}','IndexController@BrandWiseProduct')->name('brandwise.product');
 
-//      //setting profile
-//     Route::get('/home/setting','ProfileController@setting')->name('customer.setting'); 
-//     Route::post('/home/password/update','ProfileController@PasswordChange')->name('customer.password.change'); 
+     //setting profile
+    Route::get('/home/setting','ProfileController@setting')->name('customer.setting'); 
+    Route::post('/home/password/update','ProfileController@PasswordChange')->name('customer.password.change'); 
 
-//     Route::get('/my/order','ProfileController@MyOrder')->name('my.order'); 
-//     Route::get('/view/order/{id}','ProfileController@ViewOrder')->name('view.order'); 
+    Route::get('/my/order','ProfileController@MyOrder')->name('my.order'); 
+    Route::get('/view/order/{id}','ProfileController@ViewOrder')->name('view.order'); 
 
-//     //review for product
-//     Route::post('/store/review','ReviewController@store')->name('store.review');
-//     //this review for website not product
-//     Route::get('/write/review','ReviewController@write')->name('write.review');
-//     Route::post('/store/website/review','ReviewController@StoreWebsiteReview')->name('store.website.review');
+    //review for product
+    Route::post('/store/review','ReviewController@store')->name('store.review');
+    //this review for website not product
+    Route::get('/write/review','ReviewController@write')->name('write.review');
+    Route::post('/store/website/review','ReviewController@StoreWebsiteReview')->name('store.website.review');
 
 //     //page view
 //     Route::get('/page/{page_slug}','IndexController@ViewPage')->name('view.page');

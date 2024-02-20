@@ -8,7 +8,7 @@ use App\Models\Category;
 use App\Models\Subcategory;
 use App\Models\Childcategory;
 use App\Models\Brand;
-use App\Models\Pickuppoint;
+use App\Models\Pickuppont;
 
 class Product extends Model
 {
@@ -31,8 +31,8 @@ class Product extends Model
         return $this->belongsTo(Brand::class,'brand_id');
     }
 
-    // public function pickuppoint(){
-    //     return $this->belongsTo(Pickuppoint::class,'pickup_point_id');
-    // }
+    public function pickuppont(){
+        return $this->belongsTo(Pickuppont::class,'pickup_point_id');
+    }
 
 }
