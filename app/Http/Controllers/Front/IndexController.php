@@ -19,7 +19,7 @@ class IndexController extends Controller
        $bannerproduct=Product::where('status',1)->where('product_slider',1)->latest()->first();
        $featured=Product::where('status',1)->where('featured',1)->orderBy('id','DESC')->limit(16)->get();
        $todaydeal=Product::where('status',1)->where('today_deal',1)->orderBy('id','DESC')->limit(6)->get();
-    //    $popular_product=Product::where('status',1)->orderBy('product_views','DESC')->limit(16)->get();
+       $popular_product=Product::where('status',1)->orderBy('product_views','DESC')->limit(16)->get();
        $trendy_product=Product::where('status',1)->where('trendy',1)->orderBy('id','DESC')->limit(8)->get();
     //    $random_product=Product::where('status',1)->inRandomOrder()->limit(16)->get();
     //    $review=DB::table('wbreviews')->where('status',1)->orderBy('id','DESC')->limit(12)->get();
@@ -36,7 +36,7 @@ class IndexController extends Controller
    public function ProductDetails($slug)
    {
        $product=Product::where('slug',$slug)->first();
-                // Product::where('slug',$slug)->increment('product_views');
+                Product::where('slug',$slug)->increment('product_views');
        $related_product=DB::table('products')->where('subcategory_id',$product->subcategory_id)->orderBy('id','DESC')->take(10)->get();
        $review=Review::where('product_id',$product->id)->orderBy('id','DESC')->take(6)->get();
 

@@ -61,9 +61,9 @@ class BrandController extends Controller
 		  $photo = $request->file('brand_logo');
     	  $photoname=uniqid().'.'.$photo->getClientOriginalExtension();
 		  $photo = $manager->read($photo);
-            $photo = $photo->resize(240,120)->save('files/brand/'.$photoname);
+          $photo = $photo->resize(240,120)->save('files/brand/'.$photoname);
 
-    	$data['brand_logo']='files/brand/'.$photoname;   // public/files/brand/plus-point.jpg
+    	$data['brand_logo']='files/brand/'.$photoname;   // files/brand/plus-point.jpg
     	DB::table('brands')->insert($data);
     	$notification=array('messege' => 'Brand Inserted!', 'alert-type' => 'success');
     	return redirect()->back()->with($notification);

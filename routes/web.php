@@ -35,11 +35,11 @@ Route::group(['namespace'=>'App\Http\Controllers\Front'], function(){
 //     Route::get('/cartproduct/updatecolor/{rowId}/{color}','CartController@UpdateColor');
 //     Route::get('/cartproduct/updatesize/{rowId}/{size}','CartController@UpdateSize');
 
-//     //wishlist
-//     Route::get('/wishlist','CartController@wishlist')->name('wishlist');
-//     Route::get('/clear/wishlist','CartController@Clearwishlist')->name('clear.wishlist');
-//     Route::get('/add/wishlist/{id}','CartController@AddWishlist')->name('add.wishlist');
-//     Route::get('/wishlist/product/delete/{id}','CartController@WishlistProductdelete')->name('wishlistproduct.delete');
+    //wishlist
+    Route::get('/wishlist','CartController@wishlist')->name('wishlist');
+    Route::get('/clear/wishlist','CartController@Clearwishlist')->name('clear.wishlist');
+    Route::get('/add/wishlist/{id}','CartController@AddWishlist')->name('add.wishlist');
+    Route::get('/wishlist/product/delete/{id}','CartController@WishlistProductdelete')->name('wishlistproduct.delete');
     
 //     //categorywise product
         Route::get('/category/product/{id}','IndexController@categoryWiseProduct')->name('categorywise.product');

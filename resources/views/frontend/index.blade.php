@@ -166,31 +166,31 @@
                             <!-- Product Panel -->
                             <div class="product_panel panel active">
                                 <div class="featured_slider slider">
-                                    
+                                    @foreach($featured as $row)
                                     <!-- Slider Item -->
                                     <div class="featured_slider_item">
                                         <div class="border_active"></div>
                                         <div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
                                             <div class="product_image d-flex flex-column align-items-center justify-content-center">
-                                                <img src="" alt="" height="100%" width="60%">
+                                                <img src="{{ asset('public/files/product/'.$row->thumbnail) }}" alt="{{ $row->name }}" height="100%" width="60%">
                                             </div>
-                                            <div class="product_content">
-                                                
-                                                  <div class="product_price discount">{{ $setting->currency }}</div>
-                                               
-                                                  <div class="product_price discount">{{ $setting->currency }} <span>{{ $setting->currency }} </span></div>
-                                              
+                                            div class="product_content">
+                                                @if($row->discount_price==NULL)
+                                                  <div class="product_price discount">{{ $setting->currency }}{{ $row->selling_price }}</div>
+                                                @else
+                                                  <div class="product_price discount">{{ $setting->currency }} {{ $row->discount_price }}<span>{{ $setting->currency }} {{ $row->selling_price }}</span></div>
+                                                @endif  
                                                 <div class="product_name"><div>
-                                                    <a href="">..</a></div>
+                                                    <a href="{{ route('product.details',$row->slug) }}">{{ substr($row->name,0,20) }}..</a></div>
                                                 </div>
                                                 <div class="product_extras">
                                                     <div class="product_color">
-                                                       <a href="#" class="quick_view" id="" data-toggle="modal" data-target="#exampleModalCenter">quick view</a>
+                                                       <a href="#" class="quick_view" id="{{ $row->id }}" data-toggle="modal" data-target="#exampleModalCenter">quick view</a>
                                                     </div>
-                                                    <button class="product_cart_button quick_view"  id="" data-toggle="modal" data-target="#exampleModalCenter">Add to Cart</button>
+                                                    <button class="product_cart_button quick_view"  id="{{ $row->id }}" data-toggle="modal" data-target="#exampleModalCenter">Add to Cart</button>
                                                 </div>
                                             </div>
-                                            <a href="">
+                                            <a href="{{ route('add.wishlist',$row->id) }}f">
                                                <div class="product_fav">
                                                   <i class="fas fa-heart"></i>
                                                </div>
