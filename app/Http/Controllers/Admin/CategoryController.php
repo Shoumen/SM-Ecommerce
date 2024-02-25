@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use DB;
 use App\Models\Category;
 use Illuminate\Support\Str;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 use Image;
 use File;
 
@@ -39,16 +41,18 @@ class CategoryController extends Controller
     	// $data['category_name']=$request->category_name;
     	// $data['category_slug']=Str::slug($request->category_name, '-');
     	// DB::table('categories')->insert($data);
+          $manager = new ImageManager(new Driver());
           $slug=Str::slug($request->category_name, '-');
           $photo=$request->icon;
           $photoname=$slug.'.'.$photo->getClientOriginalExtension();
-          Image::make($photo)->resize(32,32)->save('public/files/category/'.$photoname);  //image intervention
+          $photo = $manager->read($photo);
+          $image = $photo->resize(32,32)->save('files/category/'.$photoname);  //image intervention
         	//Eloquent ORM
         	Category::insert([
         		'category_name'=> $request->category_name,
         		'category_slug'=> $slug,
                 'home_page'=> $request->home_page,
-                'icon'=> 'public/files/category/'.$photoname,
+                'icon'=> 'files/category/'.$photoname,
         	]);
 
     	$notification=array('messege' => 'Category Inserted!', 'alert-type' => 'success');
@@ -84,10 +88,12 @@ class CategoryController extends Controller
               if (File::exists($request->old_icon)) {
                      unlink($request->old_icon);
                 }
+              $manager = new ImageManager(new Driver());
               $photo=$request->icon;
               $photoname=$slug.'.'.$photo->getClientOriginalExtension();
-              Image::make($photo)->resize(32,32)->save('public/files/category/'.$photoname); 
-              $data['icon']='public/files/category/'.$photoname; 
+              $photo = $manager->read($photo);
+              $image = $photo->resize(32,32)->save('files/category/'.$photoname); 
+              $data['icon']='files/category/'.$photoname; 
               DB::table('categories')->where('id',$request->id)->update($data); 
               $notification=array('messege' => 'Category Update!', 'alert-type' => 'success');
               return redirect()->back()->with($notification);

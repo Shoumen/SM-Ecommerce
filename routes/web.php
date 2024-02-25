@@ -18,22 +18,22 @@ Route::group(['namespace'=>'App\Http\Controllers\Front'], function(){
     Route::get('/','IndexController@index');
     Route::get('/product-details/{slug}','IndexController@ProductDetails')->name('product.details');
 
-//     Route::get('/product-quick-view/{id}','IndexController@ProductQuickView');
+    Route::get('/product-quick-view/{id}','IndexController@ProductQuickView');
 
-//     //cart
-//     Route::get('/all-cart','CartController@AllCart')->name('all.cart'); //ajax request for subtotal
-//     Route::get('/my-cart','CartController@MyCart')->name('cart');
-//     Route::get('/cart/empty','CartController@EmptyCart')->name('cart.empty');
+    //cart
+    Route::get('/all-cart','CartController@AllCart')->name('all.cart'); //ajax request for subtotal
+    Route::get('/my-cart','CartController@MyCart')->name('cart');
+    Route::get('/cart/empty','CartController@EmptyCart')->name('cart.empty');
 //     Route::get('/checkout','CheckoutController@Checkout')->name('checkout');
 //     Route::post('/apply/coupon','CheckoutController@ApplyCoupon')->name('apply.coupon');
 //     Route::get('/remove/coupon','CheckoutController@RemoveCoupon')->name('coupon.remove');
 //     Route::post('/order/place','CheckoutController@OrderPlace')->name('order.place');
 
-//     Route::post('/addtocart','CartController@AddToCartQV')->name('add.to.cart.quickview');
-//     Route::get('/cartproduct/remove/{rowId}','CartController@RemoveProduct');
-//     Route::get('/cartproduct/updateqty/{rowId}/{qty}','CartController@UpdateQty');
-//     Route::get('/cartproduct/updatecolor/{rowId}/{color}','CartController@UpdateColor');
-//     Route::get('/cartproduct/updatesize/{rowId}/{size}','CartController@UpdateSize');
+    Route::post('/addtocart','CartController@AddToCartQV')->name('add.to.cart.quickview');
+    Route::get('/cartproduct/remove/{rowId}','CartController@RemoveProduct');
+    Route::get('/cartproduct/updateqty/{rowId}/{qty}','CartController@UpdateQty');
+    Route::get('/cartproduct/updatecolor/{rowId}/{color}','CartController@UpdateColor');
+    Route::get('/cartproduct/updatesize/{rowId}/{size}','CartController@UpdateSize');
 
     //wishlist
     Route::get('/wishlist','CartController@wishlist')->name('wishlist');
@@ -61,10 +61,10 @@ Route::group(['namespace'=>'App\Http\Controllers\Front'], function(){
     Route::post('/store/website/review','ReviewController@StoreWebsiteReview')->name('store.website.review');
 
 //     //page view
-//     Route::get('/page/{page_slug}','IndexController@ViewPage')->name('view.page');
+    Route::get('/page/{page_slug}','IndexController@ViewPage')->name('view.page');
 
 //     //newsletter
-//     Route::post('/store/newsletter','IndexController@storeNewsletter')->name('store.newsletter');
+    Route::post('/store/newsletter','IndexController@storeNewsletter')->name('store.newsletter');
 
 
 //     //support ticket
@@ -74,9 +74,9 @@ Route::group(['namespace'=>'App\Http\Controllers\Front'], function(){
 //     Route::get('/show/ticket/{id}','ProfileController@ticketShow')->name('show.ticket');
 //     Route::post('/reply/ticket','ProfileController@ReplyTicket')->name('reply.ticket');
 
-//     //order tracking
-//     Route::get('/order/tracking','IndexController@OrderTracking')->name('order.tracking');
-//     Route::post('/check/order','IndexController@CheckOrder')->name('check.order');
+    //order tracking
+    Route::get('/order/tracking','IndexController@OrderTracking')->name('order.tracking');
+    Route::post('/check/order','IndexController@CheckOrder')->name('check.order');
 
 //     //__payment gateway
 //     Route::post('/success','CheckoutController@success')->name('success');

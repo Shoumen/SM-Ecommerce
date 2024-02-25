@@ -59,15 +59,15 @@
     <div class="characteristics">
         <div class="container">
             <div class="row">
-               
+               @foreach($brand as $row) 
                 <div class="col-lg-1 col-md-6 char_col" style="border:1px solid grey; padding:5px;">
                     <div class="brands_item">
-                       <a href="" title=""> 
-                        <img src="" alt="" height="100%" width="100%"> 
+                       <a href="{{ route('brandwise.product',$row->id) }}" title="{{ $row->brand_name }}"> 
+                        <img src="{{ asset($row->brand_logo) }}" alt="{{ $row->brand_name }}" height="100%" width="100%"> 
                        </a>
                     </div>
                 </div>
-              
+               @endforeach
             </div>
         </div>
     </div>
@@ -88,30 +88,30 @@
                             <!-- Deals Slider -->
                             <div class="owl-carousel owl-theme deals_slider">
                                 
-                                  
+                               @foreach($todaydeal as $row)    
                                 <!-- Deals Item -->
                                 <div class="owl-item deals_item">
-                                    <div class="deals_image"><img src="" alt=""></div>
+                                    <div class="deals_image"><img src="{{ asset('files/product/'.$row->thumbnail) }}" alt="{{ $row->name }}"></div>
                                     <div class="deals_content">
                                         <div class="deals_info_line d-flex flex-row justify-content-start">
-                                            <div class="deals_item_category"><a href="#"></a></div>
-                                           
-                                                 <div class="deals_item_price_a ml-auto">{{ $setting->currency }}</div>
-                                             
-                                                 <div class="deals_item_price_a ml-auto">{{ $setting->currency }}</div>
-                                              
+                                            <div class="deals_item_category"><a href="#">{{ $row->subcategory->subcategory_name }}</a></div>
+                                            @if($row->discount_price==NULL)
+                                                 <div class="deals_item_price_a ml-auto">{{ $setting->currency }}{{ $row->selling_price }}</div>
+                                               @else
+                                                 <div class="deals_item_price_a ml-auto">{{ $setting->currency }} {{ $row->discount_price }}</div>
+                                               @endif
                                         </div>
                                         <div class="deals_info_line d-flex flex-row justify-content-start">
                                             <div class="deals_item_name">
-                                               <a href="">
-                                                   
+                                               <a href="{{ route('product.details',$row->slug) }}">
+                                                    {{ $row->name }}
                                                </a></div>
                                                 
                                          
                                         </div>
                                         <div class="available">
                                             <div class="available_line d-flex flex-row justify-content-start">
-                                                <div class="available_title">Available: <span></span></div>
+                                                <div class="available_title">Available: <span>{{ $row->stock_quantity }}</span></div>
                                                 <div class="sold_title ml-auto">Already sold: <span>28</span></div>
                                             </div>
                                             <div class="available_bar"><span style="width:17%"></span></div>
@@ -140,7 +140,8 @@
                                         </div>
                                     </div>
                                 </div>
-                             
+                                @endforeach
+                               
                             </div>
 
                         </div>
@@ -172,9 +173,9 @@
                                         <div class="border_active"></div>
                                         <div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
                                             <div class="product_image d-flex flex-column align-items-center justify-content-center">
-                                                <img src="{{ asset('public/files/product/'.$row->thumbnail) }}" alt="{{ $row->name }}" height="100%" width="60%">
+                                                <img src="{{ asset('files/product/'.$row->thumbnail) }}" alt="{{ $row->name }}" height="100%" width="60%">
                                             </div>
-                                            div class="product_content">
+                                            <div class="product_content">
                                                 @if($row->discount_price==NULL)
                                                   <div class="product_price discount">{{ $setting->currency }}{{ $row->selling_price }}</div>
                                                 @else
@@ -190,7 +191,7 @@
                                                     <button class="product_cart_button quick_view"  id="{{ $row->id }}" data-toggle="modal" data-target="#exampleModalCenter">Add to Cart</button>
                                                 </div>
                                             </div>
-                                            <a href="{{ route('add.wishlist',$row->id) }}f">
+                                            <a href="{{ route('add.wishlist',$row->id) }}">
                                                <div class="product_fav">
                                                   <i class="fas fa-heart"></i>
                                                </div>
@@ -201,7 +202,7 @@
                                             </ul>
                                         </div>
                                     </div>
-                                 
+                                    @endforeach
                                  </div>
                                 <div class="featured_slider_dots_cover"></div>
                             </div>
@@ -211,30 +212,30 @@
                             <div class="product_panel panel">
                                 <div class="featured_slider slider">
 
-                                  
+                                   @foreach($popular_product as $row) 
                                         <div class="featured_slider_item">
                                             <div class="border_active"></div>
                                             <div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
                                                 <div class="product_image d-flex flex-column align-items-center justify-content-center">
-                                                    <img src="" alt="" height="100%" width="60%">
+                                                    <img src="{{ asset('files/product/'.$row->thumbnail) }}" alt="{{ $row->name }}" height="100%" width="60%">
                                                 </div>
                                                 <div class="product_content">
-                                                   
-                                                      <div class="product_price discount">{{ $setting->currency }}</div>
-                                                  
-                                                      <div class="product_price discount">{{ $setting->currency }} <span>{{ $setting->currency }} </span></div>
-                                                   
+                                                    @if($row->discount_price==NULL)
+                                                      <div class="product_price discount">{{ $setting->currency }}{{ $row->selling_price }}</div>
+                                                    @else
+                                                      <div class="product_price discount">{{ $setting->currency }} {{ $row->discount_price }}<span>{{ $setting->currency }} {{ $row->selling_price }}</span></div>
+                                                    @endif
                                                     <div class="product_name"><div>
-                                                        <a href="">..</a></div>
+                                                        <a href="{{ route('product.details',$row->slug) }}">{{ substr($row->name,0,20) }}..</a></div>
                                                     </div>
                                                     <div class="product_extras">
                                                         <div class="product_color">
-                                                           <a href="#" class="quick_view" id="" data-toggle="modal" data-target="#exampleModalCenter">quick view</a>
+                                                           <a href="#" class="quick_view" id="{{ $row->id }}" data-toggle="modal" data-target="#exampleModalCenter">quick view</a>
                                                         </div>
-                                                        <button class="product_cart_button" class="product_cart_button quick_view"  id="" data-toggle="modal" data-target="#exampleModalCenter">Add to Cart</button>
+                                                        <button class="product_cart_button" class="product_cart_button quick_view"  id="{{ $row->id }}" data-toggle="modal" data-target="#exampleModalCenter">Add to Cart</button>
                                                     </div>
                                                 </div>
-                                                <a href="">
+                                                <a href="{{ route('add.wishlist',$row->id) }}">
                                                    <div class="product_fav">
                                                       <i class="fas fa-heart"></i>
                                                    </div>
@@ -244,7 +245,8 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                  
+                                   @endforeach
+
                                 </div>
                                 <div class="featured_slider_dots_cover"></div>
                             </div>
@@ -282,18 +284,18 @@
                 <div class="col-lg-9">
                     <div class="popular_categories_slider_container">
                         <div class="owl-carousel owl-theme popular_categories_slider">
-                           
+                           @foreach($category as $row) 
                             <!-- Popular Categories Item -->
                             <div class="owl-item">
                                 <div class="popular_category d-flex flex-column align-items-center justify-content-center">
                                     <div class="popular_category_image">
-                                        <img src="" alt=""></div>
+                                        <img src="{{ asset($row->icon) }}" alt="{{ $row->category_name }}"></div>
                                     <div class="popular_category_text">
-                                      <a href="">  </a>
+                                      <a href="{{ route('categorywise.product',$row->id) }}">  {{ $row->category_name }} </a>
                                     </div>
                                 </div>
                             </div>
-                          
+                           @endforeach 
                         
                         </div>
                     </div>
@@ -304,14 +306,17 @@
 
 <!-- Home Category wise product-->
 
- 
+ @foreach($home_category as $row)
+   @php 
+     $cat_product=DB::table('products')->where('category_id',$row->id)->orderBy('id','DESC')->limit(24)->get();
+   @endphp
     <div class="new_arrivals">
         <div class="container">
             <div class="row">
                 <div class="col">
                     <div class="tabbed_container">
                         <div class="tabs clearfix tabs-right">
-                            <div class="new_arrivals_title"></div>
+                            <div class="new_arrivals_title">{{ $row->category_name }}</div>
                             <ul class="clearfix">
                                 <li class=""><a href=""> view more </a></li>
                             </ul>
@@ -323,28 +328,28 @@
                                 <div class="product_panel panel active">
                                     <div class="arrivals_slider slider">
 
-                                       
+                                       @foreach($cat_product as $row) 
                                         <!-- Slider Item -->
                                         <div class="arrivals_slider_item">
                                             <div class="border_active"></div>
                                             <div class="product_item is_new d-flex flex-column align-items-center justify-content-center text-center">
-                                                <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="" alt="" height="100%" width="55%"></div>
+                                                <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="{{ asset('public/files/product/'.$row->thumbnail) }}" alt="{{ $row->name }}" height="100%" width="55%"></div>
                                                 <div class="product_content">
-                                                   
-                                                      <div class="product_price discount">{{ $setting->currency }}</div>
-                                                   
-                                                      <div class="product_price discount">{{ $setting->currency }} <span>{{ $setting->currency }} </span></div>
-                                                   
+                                                    @if($row->discount_price==NULL)
+                                                      <div class="product_price discount">{{ $setting->currency }}{{ $row->selling_price }}</div>
+                                                    @else
+                                                      <div class="product_price discount">{{ $setting->currency }} {{ $row->discount_price }}<span>{{ $setting->currency }} {{ $row->selling_price }}</span></div>
+                                                    @endif
                                                     
-                                                    <div class="product_name"><div><a href=""></a></div></div>
+                                                    <div class="product_name"><div><a href="{{ route('product.details',$row->slug) }}">{{ $row->name }}</a></div></div>
                                                     <div class="product_extras">
                                                         <div class="product_color">
-                                                            <a href="" class="quick_view" id="" data-toggle="modal" data-target="#exampleModalCenter">quick view</a>
+                                                            <a href="" class="quick_view" id="{{ $row->id }}" data-toggle="modal" data-target="#exampleModalCenter">quick view</a>
                                                         </div>
-                                                        <button class="product_cart_button quick_view"  id="" data-toggle="modal" data-target="#exampleModalCenter">Add to Cart</button>
+                                                        <button class="product_cart_button quick_view"  id="{{ $row->id }}" data-toggle="modal" data-target="#exampleModalCenter">Add to Cart</button>
                                                     </div>
                                                 </div>
-                                                <a href="">
+                                                <a href="{{ route('add.wishlist',$row->id) }}">
                                                    <div class="product_fav">
                                                       <i class="fas fa-heart"></i>
                                                    </div>
@@ -352,7 +357,7 @@
                          
                                             </div>
                                         </div>
-                                      
+                                       @endforeach 
                  
                                     </div>
                                     <div class="arrivals_slider_dots_cover"></div>
@@ -364,7 +369,7 @@
             </div>
         </div>      
     </div>
-   
+   @endforeach 
    
 
     <div class="adverts">
@@ -443,23 +448,26 @@
 
                         <div class="owl-carousel owl-theme trends_slider">
 
-                            
+                            @foreach($trendy_product as $row)
                             <!-- Trends Slider Item -->
                             <div class="owl-item">
                                 <div class="trends_item is_new">
                                     <div class="trends_image d-flex flex-column align-items-center justify-content-center">
-                                        <img src="" alt="">
+                                        <img src="{{ asset('files/product/'.$row->thumbnail) }}" alt="">
                                     </div>
                                     <div class="trends_content">
-                                    <div class="trends_category"><a href="#"></a> <div class="trends_price">
+                                    <div class="trends_category"><a href="#">{{ $row->category->category_name }}</a> <div class="trends_price">
                                        
-                                       
-                                        <del class="text-danger">{{ $setting->currency }} </del>
-                                      
+                                        @if($row->discount_price==NULL)
+                                        {{ $setting->currency }}{{ $row->selling_price }}
+                                        @else
+                                        {{ $setting->currency }} {{ $row->discount_price }}
+                                        <del class="text-danger">{{ $setting->currency }} {{ $row->selling_price }}</del>
+                                        @endif
                                     </div></div>
                                           <div class="trends_info clearfix">
                                               <div class="trends_name">
-                                                <a href="">..</a>
+                                                <a href="{{ route('product.details',$row->slug) }}">{{ substr($row->name,0,20) }}..</a>
                                               </div>
                                            </div>   
                                         </div>
@@ -470,11 +478,11 @@
                                             <i class="fa fa-eye"></i>
                                         </a>
                                     </ul>
-                                    <a href="">
+                                    <a href="{{ route('add.wishlist',$row->id) }}">
                                       <div class="trends_fav"><i class="fas fa-heart"></i></div>
                                     </a>
                                 </div>
-                               
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -500,7 +508,7 @@
                         
                         <!-- Reviews Slider -->
                         <div class="owl-carousel owl-theme reviews_slider">
-                           
+                        
                             <!-- Reviews Slider Item -->
                             <div class="owl-item">
                                 <div class="review d-flex flex-row align-items-start justify-content-start">
@@ -521,34 +529,34 @@
                                                     <span class="fa fa-star checked"></span>
                                                     <span class="fa fa-star checked"></span>
                                                     <span class="fa fa-star "></span>
-                                                   
+                                                    
                                                     <span class="fa fa-star checked"></span>
                                                     <span class="fa fa-star checked"></span>
                                                     <span class="fa fa-star checked"></span>
                                                     <span class="fa fa-star "></span>
                                                     <span class="fa fa-star "></span>
-                                                   
+                                                    
                                                     <span class="fa fa-star checked"></span>
                                                     <span class="fa fa-star checked"></span>
                                                     <span class="fa fa-star "></span>
                                                     <span class="fa fa-star "></span>
                                                     <span class="fa fa-star "></span>
-                                                   
+                                                    
                                                     <span class="fa fa-star checked"></span>
                                                     <span class="fa fa-star "></span>
                                                     <span class="fa fa-star "></span>
                                                     <span class="fa fa-star "></span>
                                                     <span class="fa fa-star "></span>
-                                                   
+                                                    
                                                 
                                             </div>
-                                            <div class="review_time"></div>
+                                            <div class="review_time">{{ $row->review_date }}</div>
                                         </div>
-                                        <div class="review_text"><p style="text-align: justify;">..</p></div>
+                                        <div class="review_text"><p style="text-align: justify;">.{{ substr($row->review,0,110) }}..</p></div>
                                     </div>
                                 </div>
                             </div>
-                           
+                            
                         </div>
                         <div class="reviews_dots"></div>
                     </div>
@@ -576,22 +584,24 @@
                         <!-- Recently Viewed Slider -->
 
                         <div class="owl-carousel owl-theme viewed_slider">
-                         
+                           @foreach($random_product as $row) 
                             <!-- Recently Viewed Item -->
                             <div class="owl-item">
                                 <div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
-                                    <div class="viewed_image"><img src="" alt=""></div>
+                                    <div class="viewed_image"><img src="{{ asset('files/product/'.$row->thumbnail) }}" alt="{{ $row->name }}"></div>
                                     <div class="viewed_content text-center">
-                                      
-                                        {{ $setting->currency }}
-                                        <del class="text-danger">{{ $setting->currency }} </del>
-                                       
-                                        <div class="viewed_name"><a href="">...</a></div>
+                                        @if($row->discount_price==NULL)
+                                        {{ $setting->currency }}{{ $row->selling_price }}
+                                        @else
+                                        {{ $setting->currency }} {{ $row->discount_price }}
+                                        <del class="text-danger">{{ $setting->currency }} {{ $row->selling_price }}</del>
+                                        @endif
+                                        <div class="viewed_name"><a href="{{ route('product.details',$row->slug) }}">{{ substr($row->name,0,30) }}...</a></div>
                                     </div>
                                     
                                 </div>
                             </div>
-                            
+                            @endforeach
 
                         </div>
                     </div>
@@ -611,13 +621,13 @@
                         <!-- Brands Slider -->
 
                         <div class="owl-carousel owl-theme brands_slider">
-                         
+                           @foreach($brand as $row) 
                             <div class="owl-item">
                                 <div class="brands_item d-flex flex-column justify-content-center">
-                                   <a href="" title=""> <img src="" alt="" height="50" width="40"> </a>
+                                   <a href="{{ route('brandwise.product',$row->id) }}" title="{{ $row->brand_name }}"> <img src="{{ asset($row->brand_logo) }}" alt="{{ $row->brand_name }}" height="50" width="40"> </a>
                                 </div>
                             </div>
-                            
+                           @endforeach     
                         </div>
                         
                         <!-- Brands Slider Navigation -->
@@ -696,7 +706,7 @@
                             <div class="newsletter_text"><p>...and receive %20 coupon for first shopping.</p></div>
                         </div>
                         <div class="newsletter_content clearfix">
-                            <form action="" method="post" class="newsletter_form" id="newsletter_form">
+                            <form action="{{ route('store.newsletter') }}" method="post" class="newsletter_form" id="newsletter_form">
                                 @csrf
                                 <input type="email" name="email" class="newsletter_input" required="required" placeholder="Enter your email address">
                                 <button class="newsletter_button" type="submit">Subscribe</button>

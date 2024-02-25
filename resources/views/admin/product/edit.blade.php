@@ -143,7 +143,7 @@
                       <label for="exampleInputEmail1">Warehouse <span class="text-danger">*</span> </label>
                       <select class="form-control" name="warehouse">
                         @foreach($warehouse as $row)
-                         <option value="{{ $row->warehouse_name }}">{{ $row->warehouse_name }}</option>
+                         <option value="{{ $row->id }}">{{ $row->warehouse_name }}</option>
                         @endforeach 
                       </select>
                     </div>

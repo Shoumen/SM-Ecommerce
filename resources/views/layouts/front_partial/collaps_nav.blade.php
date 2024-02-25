@@ -25,7 +25,7 @@ $category=DB::table('categories')->orderBy('category_name','ASC')->get();
 								@endphp
 									<li class="hassubs">
 										<a href="{{ route('categorywise.product',$row->id) }}">
-										  <img src="" height="18" width="18">  {{ $row->category_name }}<i class="fas fa-chevron-right"></i>
+										  <img src="{{ asset($row->icon) }}" height="18" width="18">  {{ $row->category_name }}<i class="fas fa-chevron-right"></i>
 										</a>
 									   
 									    <ul>

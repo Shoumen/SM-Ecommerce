@@ -253,10 +253,11 @@ class ProductController extends Controller
        //__old thumbnail ase kina__ jodi thake new thumbnail insert korte hobe
        $thumbnail = $request->file('thumbnail');
         if($thumbnail) {
-           
+            $manager = new ImageManager(new Driver());
              $thumbnail=$request->thumbnail;
              $photoname=$slug.'.'.$thumbnail->getClientOriginalExtension();
-             $image->move('files/product/',$photoname);
+            $thumbnail = $manager->read($thumbnail);
+            $thumbnail = $thumbnail->resize(600,600)->save('files/product/'.$photoname);
             //  Image::make($thumbnail)->resize(600,600)->save('public/files/product/'.$photoname);
              $data['thumbnail']=$photoname;   // public/files/product/plus-point.jpg   
         }
@@ -273,11 +274,12 @@ class ProductController extends Controller
         }
 
         if($request->hasFile('images')){
+            $manager = new ImageManager(new Driver());
             foreach ($request->file('images') as $key => $image) {
                 $imageName= hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
-                $image->move('files/product/',$photoname);
-                // Image::make($image)->resize(600,600)->save('public/files/product/'.$imageName);
-                array_push($images, $imageName);
+               $image = $manager->read($image);
+               $image = $image->resize(600,600)->save('files/product/'.$imageName);
+               array_push($images, $imageName);
             }
             $data['images'] = json_encode($images);
         }

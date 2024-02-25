@@ -11,15 +11,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="OneTech shop project">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="{{ asset('/frontend') }}/styles/bootstrap4/bootstrap.min.css">
-    <link href="{{ asset('/frontend') }}/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="{{ asset('/frontend') }}/plugins/OwlCarousel2-2.2.1/owl.carousel.css">
-    <link rel="stylesheet" type="text/css" href="{{ asset('/frontend') }}/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
-    <link rel="stylesheet" type="text/css" href="{{ asset('/frontend') }}/plugins/OwlCarousel2-2.2.1/animate.css">
-    <link rel="stylesheet" type="text/css" href="{{ asset('/frontend') }}/plugins/slick-1.8.0/slick.css">
-    <link rel="stylesheet" type="text/css" href="{{ asset('/frontend') }}/styles/main_styles.css">
-    <link rel="stylesheet" type="text/css" href="{{ asset('/frontend') }}/styles/responsive.css">
-    <link rel="stylesheet" type="text/css" href="{{ asset('/backend/plugins/toastr/toastr.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/styles/bootstrap4/bootstrap.min.css">
+    <link href="{{ asset('frontend') }}/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/plugins/OwlCarousel2-2.2.1/owl.carousel.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/plugins/OwlCarousel2-2.2.1/animate.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/plugins/slick-1.8.0/slick.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/styles/main_styles.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/styles/responsive.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('backend/plugins/toastr/toastr.css') }}">
 
 </head>
 
@@ -37,8 +37,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col d-flex flex-row">
-                        <div class="top_bar_contact_item"><div class="top_bar_icon"><img src="images/phone.png" alt=""></div></div>
-                        <div class="top_bar_contact_item"><div class="top_bar_icon"><img src="images/mail.png" alt=""></div><a href="#"></a></div>
+                        <div class="top_bar_contact_item"><div class="top_bar_icon"><img src="images/phone.png" alt=""></div>{{ $setting->phone_one }}</div>
+                        <div class="top_bar_contact_item"><div class="top_bar_icon"><img src="images/mail.png" alt=""></div><a href="mailto:{{ $setting->main_email }}">{{ $setting->main_email }}</a></div>
                         <div class="top_bar_content ml-auto">
                            
                             @if(Auth::check())
@@ -91,7 +91,7 @@
                                                    </div>
                                                </form>
                                                <div class="form-group">
-                                                 <a href="#" class="btn btn-danger btn-sm btn-block text-white">Login WIth Google</a>
+                                                 <a href="{{ route('social.oauth', 'google') }}" class="btn btn-danger btn-sm btn-block text-white">Login WIth Google</a>
                                                 </div>
                                            </div>
                                         </ul>
@@ -148,18 +148,18 @@
                             </div>
                         </div>
                     </div>
+
                     @php
-                    $wishlist=DB::table('wishlists')->where('user_id',Auth::id())->count();
+                        $wishlist=DB::table('wishlists')->where('user_id',Auth::id())->count();
                     @endphp
- 
                     <!-- Wishlist -->
                     <div class="col-lg-4 col-9 order-lg-3 order-2 text-lg-left text-right">
                         <div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
                             <div class="wishlist d-flex flex-row align-items-center justify-content-end">
-                                <div class="wishlist_icon"><img src="{{ asset('/frontend') }}/images/heart.png" alt=""></div>
+                                <div class="wishlist_icon"><img src="{{ asset('frontend') }}/images/heart.png" alt=""></div>
                                 <div class="wishlist_content">
-                                    <div class="wishlist_text"><a href="#">Wishlist</a></div>
-                                    <div class="wishlist_count">{{$wishlist}}</div>
+                                    <div class="wishlist_text"><a href="{{ route('wishlist') }}">Wishlist</a></div>
+                                    <div class="wishlist_count">{{ $wishlist }}</div>
                                 </div>
                             </div>
 
@@ -167,12 +167,12 @@
                             <div class="cart">
                                 <div class="cart_container d-flex flex-row align-items-center justify-content-end">
                                     <div class="cart_icon">
-                                        <img src="{{ asset('/frontend') }}/images/cart.png" alt="">
+                                        <img src="{{ asset('frontend') }}/images/cart.png" alt="">
                                         <div class="cart_count"><span class="cart_qty"></span></div>
                                     </div>
                                     <div class="cart_content">
-                                        <div class="cart_text"><a href="#">Cart</a></div>
-                                        <div class="cart_price"> <span class="cart_total"></span></div>
+                                        <div class="cart_text"><a href="{{ route('cart') }}">Cart</a></div>
+                                        <div class="cart_price">{{ $setting->currency }} <span class="cart_total"></span></div>
                                     </div>
                                 </div>
                             </div>
@@ -204,21 +204,21 @@
                     <div class="footer_column footer_contact">
                         <div class="logo_container">
                             <div class="logo">
-                                <img src="" height="80px;">
+                                <img src="{{ asset( $setting->logo ) }}" height="80px;">
                             </div>
                         </div>
                         <div class="footer_title">Got Question? Call Us 24/7</div>
-                        <div class="footer_phone"></div>
+                        <div class="footer_phone">{{ $setting->phone_two }}</div>
                         <div class="footer_contact_text">
-                            <p></p>
+                            <p>{{ $setting->address }}</p>
                         </div>
                         <div class="footer_social">
                             <ul>
-                                <li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-                                <li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
-                                <li><a href="#" target="_blank"><i class="fab fa-youtube"></i></a></li>
-                                <li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
-                                <li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                                <li><a href="{{ $setting->facebook }}" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                                <li><a href="{{ $setting->twitter }}" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                                <li><a href="{{ $setting->youtube }}" target="_blank"><i class="fab fa-youtube"></i></a></li>
+                                <li><a href="{{ $setting->linkedin }}" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+                                <li><a href="{{ $setting->instagram }}" target="_blank"><i class="fab fa-instagram"></i></a></li>
                             </ul>
                         </div>
                     </div>
@@ -229,7 +229,7 @@
                         <div class="footer_title">Other Pages</div>
                         <ul class="footer_list">
                             @foreach($pages_one as $row)
-                            <li><a href="#"></a></li>
+                            <li><a href="{{ route('view.page',$row->page_slug) }}">{{ $row->page_name }}</a></li>
                             @endforeach
                         </ul>
                        
@@ -240,7 +240,7 @@
                     <div class="footer_column">
                         <ul class="footer_list footer_list_2">
                             @foreach($pages_two as $row)
-                            <li><a href="#">{{ $row->page_name }}</a></li>
+                            <li><a href="{{ route('view.page',$row->page_slug) }}">{{ $row->page_name }}</a></li>
                             @endforeach
                         </ul>
                     </div>
@@ -250,9 +250,9 @@
                     <div class="footer_column">
                         <div class="footer_title">Customer Care</div>
                         <ul class="footer_list">
-                            <li><a href="#">My Account</a></li>
-                            <li><a href="#">Order Tracking</a></li>
-                            <li><a href="#">Wish List</a></li>
+                            <li><a href="{{ route('home') }}">My Account</a></li>
+                            <li><a href="{{ route('order.tracking') }}">Order Tracking</a></li>
+                            <li><a href="{{ route('wishlist') }}">Wish List</a></li>
                             <li><a href="#">Our Blog</a></li>
                             <li><a href="#">Contact Us</a></li>
                             <li><a href="#">Become a vendor</a></li>
@@ -289,29 +289,28 @@
             </div>
         </div>
     </div>
-</div>
 
-<script src="{{ asset('/frontend') }}/js/jquery-3.3.1.min.js"></script>
-<script src="{{ asset('/frontend') }}/styles/bootstrap4/popper.js"></script>
-<script src="{{ asset('/frontend') }}/styles/bootstrap4/bootstrap.min.js"></script>
-<script src="{{ asset('/frontend') }}/plugins/greensock/TweenMax.min.js"></script>
-<script src="{{ asset('/frontend') }}/plugins/greensock/TimelineMax.min.js"></script>
-<script src="{{ asset('/frontend') }}/plugins/scrollmagic/ScrollMagic.min.js"></script>
-<script src="{{ asset('/frontend') }}/plugins/greensock/animation.gsap.min.js"></script>
-<script src="{{ asset('/frontend') }}/plugins/greensock/ScrollToPlugin.min.js"></script>
-<script src="{{ asset('/frontend') }}/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
-<script src="{{ asset('/frontend') }}/plugins/slick-1.8.0/slick.js"></script>
-<script src="{{ asset('/frontend') }}/plugins/easing/easing.js"></script>
-<script src="{{ asset('/frontend') }}/js/custom.js"></script>
-<script src="{{ asset('/frontend') }}/js/product_custom.js"></script>
-<script type="text/javascript" src="{{ asset('/backend/plugins/toastr/toastr.min.js') }}"></script>
+<script src="{{ asset('frontend') }}/js/jquery-3.3.1.min.js"></script>
+<script src="{{ asset('frontend') }}/styles/bootstrap4/popper.js"></script>
+<script src="{{ asset('frontend') }}/styles/bootstrap4/bootstrap.min.js"></script>
+<script src="{{ asset('frontend') }}/plugins/greensock/TweenMax.min.js"></script>
+<script src="{{ asset('frontend') }}/plugins/greensock/TimelineMax.min.js"></script>
+<script src="{{ asset('frontend') }}/plugins/scrollmagic/ScrollMagic.min.js"></script>
+<script src="{{ asset('frontend') }}/plugins/greensock/animation.gsap.min.js"></script>
+<script src="{{ asset('frontend') }}/plugins/greensock/ScrollToPlugin.min.js"></script>
+<script src="{{ asset('frontend') }}/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+<script src="{{ asset('frontend') }}/plugins/slick-1.8.0/slick.js"></script>
+<script src="{{ asset('frontend') }}/plugins/easing/easing.js"></script>
+<script src="{{ asset('frontend') }}/js/custom.js"></script>
+<script src="{{ asset('frontend') }}/js/product_custom.js"></script>
+<script type="text/javascript" src="{{ asset('backend/plugins/toastr/toastr.min.js') }}"></script>
 
 
  <script type="text/javascript" charset="utf-8">
     function cart() {
          $.ajax({
             type:'get',
-            url:'', 
+            url:'{{ route('all.cart') }}', 
             dataType: 'json',
             success:function(data){
                $('.cart_qty').empty();
