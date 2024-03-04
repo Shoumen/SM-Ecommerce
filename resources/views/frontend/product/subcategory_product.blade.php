@@ -101,7 +101,7 @@
 							@foreach($products as $row)
 								<div class="product_item is_new col-lg-2">
 									<div class="product_border"></div>
-									<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="{{ asset('public/files/product/'.$row->thumbnail) }}" alt=""></div>
+									<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="{{ asset('files/product/'.$row->thumbnail) }}" alt=""></div>
 									<div class="product_content">
 										@if($row->discount_price==NULL)
 										 <div class="product_price">{{ $setting->currency }}{{ $row->selling_price }}</div>

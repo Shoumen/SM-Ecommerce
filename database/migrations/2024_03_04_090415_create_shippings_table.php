@@ -11,14 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('wishlists', function (Blueprint $table) {
+        Schema::create('shippings', function (Blueprint $table) {
             $table->id();
+
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('product_id');
-            $table->string('video')->nullable();
+            $table->string('shipping_name')->nullable();
+            $table->string('shipping_phone')->nullable();
+            $table->string('shipping_address')->nullable();
+            $table->string('shipping_country')->nullable();
+            $table->string('shipping_city')->nullable();
+            $table->string('shipping_zipcode')->nullable();
+            $table->string('shipping_email')->nullable();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
     }
 
@@ -27,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('wishlists');
+        Schema::dropIfExists('shippings');
     }
 };

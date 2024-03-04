@@ -91,7 +91,7 @@
                                                    </div>
                                                </form>
                                                <div class="form-group">
-                                                 <a href="{{ route('social.oauth', 'google') }}" class="btn btn-danger btn-sm btn-block text-white">Login WIth Google</a>
+                                                 <a href="#" class="btn btn-danger btn-sm btn-block text-white">Login WIth Google</a>
                                                 </div>
                                            </div>
                                         </ul>
@@ -117,7 +117,7 @@
                     <!-- Logo -->
                     <div class="col-lg-2 col-sm-3 col-3 order-1">
                         <div class="logo_container">
-                            <div class="logo"><a href="{{ url('/') }}">LearnHun</a></div>
+                            <div class="logo"><a href="{{ url('/') }}">SM Shop</a></div>
                         </div>
                     </div>
 

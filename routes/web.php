@@ -24,10 +24,10 @@ Route::group(['namespace'=>'App\Http\Controllers\Front'], function(){
     Route::get('/all-cart','CartController@AllCart')->name('all.cart'); //ajax request for subtotal
     Route::get('/my-cart','CartController@MyCart')->name('cart');
     Route::get('/cart/empty','CartController@EmptyCart')->name('cart.empty');
-//     Route::get('/checkout','CheckoutController@Checkout')->name('checkout');
-//     Route::post('/apply/coupon','CheckoutController@ApplyCoupon')->name('apply.coupon');
-//     Route::get('/remove/coupon','CheckoutController@RemoveCoupon')->name('coupon.remove');
-//     Route::post('/order/place','CheckoutController@OrderPlace')->name('order.place');
+    Route::get('/checkout','CheckoutController@Checkout')->name('checkout');
+    Route::post('/apply/coupon','CheckoutController@ApplyCoupon')->name('apply.coupon');
+    Route::get('/remove/coupon','CheckoutController@RemoveCoupon')->name('coupon.remove');
+    Route::post('/order/place','CheckoutController@OrderPlace')->name('order.place');
 
     Route::post('/addtocart','CartController@AddToCartQV')->name('add.to.cart.quickview');
     Route::get('/cartproduct/remove/{rowId}','CartController@RemoveProduct');
@@ -41,11 +41,11 @@ Route::group(['namespace'=>'App\Http\Controllers\Front'], function(){
     Route::get('/add/wishlist/{id}','CartController@AddWishlist')->name('add.wishlist');
     Route::get('/wishlist/product/delete/{id}','CartController@WishlistProductdelete')->name('wishlistproduct.delete');
     
-//     //categorywise product
-        Route::get('/category/product/{id}','IndexController@categoryWiseProduct')->name('categorywise.product');
-        Route::get('/subcategory/product/{id}','IndexController@SubcategoryWiseProduct')->name('subcategorywise.product');
-        Route::get('/childcategory/product/{id}','IndexController@ChildcategoryWiseProduct')->name('childcategorywise.product');
-        Route::get('/brandwise/product/{id}','IndexController@BrandWiseProduct')->name('brandwise.product');
+    //categorywise product
+    Route::get('/category/product/{id}','IndexController@categoryWiseProduct')->name('categorywise.product');
+    Route::get('/subcategory/product/{id}','IndexController@SubcategoryWiseProduct')->name('subcategorywise.product');
+    Route::get('/childcategory/product/{id}','IndexController@ChildcategoryWiseProduct')->name('childcategorywise.product');
+    Route::get('/brandwise/product/{id}','IndexController@BrandWiseProduct')->name('brandwise.product');
 
      //setting profile
     Route::get('/home/setting','ProfileController@setting')->name('customer.setting'); 
@@ -86,12 +86,12 @@ Route::group(['namespace'=>'App\Http\Controllers\Front'], function(){
 //     })->name('cancel');
 
     
-//     Route::get('/contact-us','IndexController@Contact')->name('contact');
-//     Route::get('/our-blog','IndexController@Blog')->name('blog');
+    Route::get('/contact-us','IndexController@Contact')->name('contact');
+    Route::get('/our-blog','IndexController@Blog')->name('blog');
     
-//     //__campaign__//
-//     Route::get('/campain/products/{id}','IndexController@CampaignProduct')->name('frontend.campaign.product');   
-//     Route::get('/camapign-product-details/{slug}','IndexController@CampaignProductDetails')->name('campaign.product.details');
+    //__campaign__//
+    Route::get('/campain/products/{id}','IndexController@CampaignProduct')->name('frontend.campaign.product');   
+    Route::get('/camapign-product-details/{slug}','IndexController@CampaignProductDetails')->name('campaign.product.details');
     });
 
 

@@ -43,7 +43,7 @@ class ReviewController extends Controller
     }
 
 
-    //wqrite a review for website
+    //write a review for website
     public function write()
     {
         return view('user.review_write');

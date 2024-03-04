@@ -179,7 +179,7 @@
                                                 @if($row->discount_price==NULL)
                                                   <div class="product_price discount">{{ $setting->currency }}{{ $row->selling_price }}</div>
                                                 @else
-                                                  <div class="product_price discount">{{ $setting->currency }} {{ $row->discount_price }}<span>{{ $setting->currency }} {{ $row->selling_price }}</span></div>
+                                                  <div class="product_price discount">{{ $setting->currency }} {{ $row->discount_price }} <span>{{ $setting->currency }} {{ $row->selling_price }}</span></div>
                                                 @endif  
                                                 <div class="product_name"><div>
                                                     <a href="{{ route('product.details',$row->slug) }}">{{ substr($row->name,0,20) }}..</a></div>
@@ -333,7 +333,7 @@
                                         <div class="arrivals_slider_item">
                                             <div class="border_active"></div>
                                             <div class="product_item is_new d-flex flex-column align-items-center justify-content-center text-center">
-                                                <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="{{ asset('public/files/product/'.$row->thumbnail) }}" alt="{{ $row->name }}" height="100%" width="55%"></div>
+                                                <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="{{ asset('files/product/'.$row->thumbnail) }}" alt="{{ $row->name }}" height="100%" width="55%"></div>
                                                 <div class="product_content">
                                                     @if($row->discount_price==NULL)
                                                       <div class="product_price discount">{{ $setting->currency }}{{ $row->selling_price }}</div>
