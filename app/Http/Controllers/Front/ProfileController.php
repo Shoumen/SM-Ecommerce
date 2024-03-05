@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 use Auth;
 use DB;
 use App\Models\User;
@@ -85,9 +87,11 @@ class ProfileController extends Controller
 
          if ($request->image) {
               //working with image
+              $manager = new ImageManager(new Driver());
                   $photo=$request->image;
                   $photoname=uniqid().'.'.$photo->getClientOriginalExtension();
-                  Image::make($photo)->resize(600,350)->save('files/ticket/'.$photoname);  //image intervention
+                  $photo = $manager->read($photo);
+                  $photo = $photo->resize(600,350)->save('files/ticket/'.$photoname);  //image intervention
                   $data['image']='files/ticket/'.$photoname;   // public/files/brand/plus-point.jpg
          }
         
@@ -119,9 +123,11 @@ class ProfileController extends Controller
 
          if ($request->image) {
               //working with image
+              $manager = new ImageManager(new Driver());
                   $photo=$request->image;
                   $photoname=uniqid().'.'.$photo->getClientOriginalExtension();
-                  Image::make($photo)->resize(600,350)->save('files/ticket/'.$photoname);  //image intervention
+                  $photo = $manager->read($photo);
+                  $photo = $photo->resize(600,350)->save('files/ticket/'.$photoname);  //image intervention
                   $data['image']='files/ticket/'.$photoname;   // public/files/brand/plus-point.jpg
          }
         

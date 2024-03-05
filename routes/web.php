@@ -67,23 +67,23 @@ Route::group(['namespace'=>'App\Http\Controllers\Front'], function(){
     Route::post('/store/newsletter','IndexController@storeNewsletter')->name('store.newsletter');
 
 
-//     //support ticket
-//     Route::get('/open/ticket','ProfileController@ticket')->name('open.ticket');
-//     Route::get('/new/ticket','ProfileController@NewTicket')->name('new.ticket');
-//     Route::post('/store/ticket','ProfileController@StoreTicket')->name('store.ticket');
-//     Route::get('/show/ticket/{id}','ProfileController@ticketShow')->name('show.ticket');
-//     Route::post('/reply/ticket','ProfileController@ReplyTicket')->name('reply.ticket');
+    //support ticket
+    Route::get('/open/ticket','ProfileController@ticket')->name('open.ticket');
+    Route::get('/new/ticket','ProfileController@NewTicket')->name('new.ticket');
+    Route::post('/store/ticket','ProfileController@StoreTicket')->name('store.ticket');
+    Route::get('/show/ticket/{id}','ProfileController@ticketShow')->name('show.ticket');
+    Route::post('/reply/ticket','ProfileController@ReplyTicket')->name('reply.ticket');
 
     //order tracking
     Route::get('/order/tracking','IndexController@OrderTracking')->name('order.tracking');
     Route::post('/check/order','IndexController@CheckOrder')->name('check.order');
 
-//     //__payment gateway
-//     Route::post('/success','CheckoutController@success')->name('success');
-//     Route::post('/fail','CheckoutController@fail')->name('fail');
-//     Route::get('/success',function(){
-//         return redirect()->to('/');
-//     })->name('cancel');
+    //__payment gateway
+    Route::post('/success','CheckoutController@success')->name('success');
+    Route::post('/fail','CheckoutController@fail')->name('fail');
+    Route::get('/success',function(){
+        return redirect()->to('/');
+    })->name('cancel');
 
     
     Route::get('/contact-us','IndexController@Contact')->name('contact');
@@ -96,5 +96,5 @@ Route::group(['namespace'=>'App\Http\Controllers\Front'], function(){
 
 
 //socialite
-// Route::get('oauth/{driver}', [App\Http\Controllers\Auth\LoginController::class, 'redirectToProvider'])->name('social.oauth');
-// Route::get('oauth/{driver}/callback', [App\Http\Controllers\Auth\LoginController::class, 'handleProviderCallback'])->name('social.callback');
+Route::get('oauth/{driver}', [App\Http\Controllers\Auth\LoginController::class, 'redirectToProvider'])->name('social.oauth');
+Route::get('oauth/{driver}/callback', [App\Http\Controllers\Auth\LoginController::class, 'handleProviderCallback'])->name('social.callback');
