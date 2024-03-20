@@ -140,7 +140,7 @@
             <ul class="nav nav-treeview">
 
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{ route('admin.order.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Orders</p>
                 </a>
@@ -207,7 +207,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{ route('ticket.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Ticket</p>
                 </a>
@@ -247,7 +247,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{ route('report.order.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Order report</p>
                 </a>
@@ -271,7 +271,7 @@
                 </a>
               </li> 
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Ticket report </p>
                 </a>

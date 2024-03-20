@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class InvoiceMail extends Mailable
+class RecieveMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -27,7 +27,7 @@ class InvoiceMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Invoice Mail',
+            subject: 'Recieve Mail',
         );
     }
 
@@ -48,6 +48,6 @@ class InvoiceMail extends Mailable
      */
     public function attachments(): array
     {
-        return $this->subject('Invoice From Ecommerce')->view('mail.invoice');
+        return $this->subject('Mail From LH Ecommerce')->view('mail.recieved');
     }
 }

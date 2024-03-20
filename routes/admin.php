@@ -193,12 +193,12 @@ Route::group(['namespace'=>'App\Http\Controllers\Admin', 'middleware' =>'is_admi
 		// 	Route::post('/update','RoleController@update')->name('update.role');
 		// });
 
-	    // //__report routes__//
-	    // Route::group(['prefix'=>'report'], function(){
-		// 	Route::get('/order','OrderController@Reportindex')->name('report.order.index');
-		// 	Route::get('/order/print','OrderController@ReportOrderPrint')->name('report.order.print');
+	    //__report routes__//
+	    Route::group(['prefix'=>'report'], function(){
+			Route::get('/order','OrderController@Reportindex')->name('report.order.index');
+			Route::get('/order/print','OrderController@ReportOrderPrint')->name('report.order.print');
 			
-		// });
+		});
 
 	});
 	// Route::get('/ajax/child/category/{id}','AjaxController@childCategory')->name('child.ajax');
