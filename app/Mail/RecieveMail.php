@@ -12,11 +12,12 @@ use Illuminate\Queue\SerializesModels;
 class RecieveMail extends Mailable
 {
     use Queueable, SerializesModels;
+    public $order;
 
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($order)
     {
         $this->order=$order;
     }

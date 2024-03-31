@@ -160,7 +160,7 @@ return [
          * Package Service Providers...
          */
         Yajra\DataTables\DataTablesServiceProvider::class,
-        
+        Laravel\Socialite\SocialiteServiceProvider::class,
         
 
         /*
@@ -188,6 +188,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         
         'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         
     ])->toArray(),
 

@@ -174,24 +174,24 @@ Route::group(['namespace'=>'App\Http\Controllers\Admin', 'middleware' =>'is_admi
 			
 	    });
 
-		// //Blog category
-	    // Route::group(['prefix'=>'blog-category'], function(){
-		// 	Route::get('/','BlogController@index')->name('admin.blog.category');
-		// 	Route::post('/store','BlogController@store')->name('blog.category.store');
-		// 	Route::get('/delete/{id}','BlogController@destroy')->name('blog.category.delete');
-		// 	Route::get('/edit/{id}','BlogController@edit');
-		// 	Route::post('/update','BlogController@update')->name('blog.category.update');
-		// });
+		//Blog category
+	    Route::group(['prefix'=>'blog-category'], function(){
+			Route::get('/','BlogController@index')->name('admin.blog.category');
+			Route::post('/store','BlogController@store')->name('blog.category.store');
+			Route::get('/delete/{id}','BlogController@destroy')->name('blog.category.delete');
+			Route::get('/edit/{id}','BlogController@edit');
+			Route::post('/update','BlogController@update')->name('blog.category.update');
+		});
 
-	    // //__role create__
-	    // Route::group(['prefix'=>'role'], function(){
-		// 	Route::get('/','RoleController@index')->name('manage.role');
-		// 	Route::get('/create','RoleController@create')->name('create.role');
-		// 	Route::post('/store','RoleController@store')->name('store.role');
-		// 	Route::get('/delete/{id}','RoleController@destroy')->name('role.delete');
-		// 	Route::get('/edit/{id}','RoleController@edit')->name('role.edit');
-		// 	Route::post('/update','RoleController@update')->name('update.role');
-		// });
+	    //__role create__
+	    Route::group(['prefix'=>'role'], function(){
+			Route::get('/','RoleController@index')->name('manage.role');
+			Route::get('/create','RoleController@create')->name('create.role');
+			Route::post('/store','RoleController@store')->name('store.role');
+			Route::get('/delete/{id}','RoleController@destroy')->name('role.delete');
+			Route::get('/edit/{id}','RoleController@edit')->name('role.edit');
+			Route::post('/update','RoleController@update')->name('update.role');
+		});
 
 	    //__report routes__//
 	    Route::group(['prefix'=>'report'], function(){

@@ -5,7 +5,7 @@
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
       <img src="{{url($setting->favicon)}}"  class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">SM Ecommerce</span>
+      <span class="brand-text font-weight-light">LH Ecommerce</span>
     </a>
 
     <!-- Sidebar -->
@@ -34,7 +34,7 @@
             </a>
           </li>
 
-         
+          @if(Auth::user()->category==1)
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
@@ -76,9 +76,9 @@
               </li>
             </ul>
           </li>
-         
+          @endif
 
-         
+          @if(Auth::user()->product==1)
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
@@ -102,8 +102,9 @@
               </li>
             </ul>
           </li>
-          
-          
+          @endif
+
+          @if(Auth::user()->offer==1)
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
@@ -127,8 +128,9 @@
               </li>
             </ul>
           </li>
-          
-          
+          @endif
+
+          @if(Auth::user()->order==1)
            <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
@@ -147,10 +149,10 @@
               </li>
             </ul>
           </li>
-         
+          @endif
 
           
-         
+          @if(Auth::user()->blog==1)
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
@@ -161,22 +163,22 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{ route('admin.blog.category') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Category</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{ route('admin.blog.category') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Blog</p>
                 </a>
               </li>
             </ul>
           </li>
-         
+          @endif 
 
-         
+          @if(Auth::user()->pickup==1)
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
@@ -194,9 +196,9 @@
               </li>   
             </ul>
           </li>
-          
+          @endif 
 
-         
+          @if(Auth::user()->ticket==1)
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
@@ -214,9 +216,9 @@
               </li>   
             </ul>
           </li>
-         
+          @endif
 
-         
+          @if(Auth::user()->contact==1)
            <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
@@ -234,9 +236,9 @@
               </li>   
             </ul>
           </li>
-         
+          @endif
 
-         
+          @if(Auth::user()->report==1)
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
@@ -271,16 +273,16 @@
                 </a>
               </li> 
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Ticket report </p>
                 </a>
               </li> 
             </ul>
           </li>
-         
+          @endif
 
-         
+          @if(Auth::user()->setting==1)
            <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
@@ -322,9 +324,9 @@
               </li>
             </ul>
           </li>
-         
+          @endif
 
-          
+          @if(Auth::user()->userrole==1)
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
@@ -335,20 +337,20 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('create.role') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Create New Role</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('manage.role') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Manage Role</p>
                 </a>
               </li>
             </ul>
           </li>
-         
+          @endif
 
 
 

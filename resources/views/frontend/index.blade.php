@@ -179,7 +179,7 @@
                                                 @if($row->discount_price==NULL)
                                                   <div class="product_price discount">{{ $setting->currency }}{{ $row->selling_price }}</div>
                                                 @else
-                                                  <div class="product_price discount">{{ $setting->currency }} {{ $row->discount_price }} <span>{{ $setting->currency }} {{ $row->selling_price }}</span></div>
+                                                  <div class="product_price discount">{{ $setting->currency }} {{ $row->discount_price }}<span>{{ $setting->currency }} {{ $row->selling_price }}</span></div>
                                                 @endif  
                                                 <div class="product_name"><div>
                                                     <a href="{{ route('product.details',$row->slug) }}">{{ substr($row->name,0,20) }}..</a></div>
@@ -508,55 +508,55 @@
                         
                         <!-- Reviews Slider -->
                         <div class="owl-carousel owl-theme reviews_slider">
-                        
+                            @foreach($review as $row)
                             <!-- Reviews Slider Item -->
                             <div class="owl-item">
                                 <div class="review d-flex flex-row align-items-start justify-content-start">
                                     <div><div class="review_image"><img src="{{ asset('files/dummy.jpg') }}" alt=""></div></div>
                                     <div class="review_content">
-                                        <div class="review_name"></div>
+                                        <div class="review_name">{{ $row->name }}</div>
                                         <div class="review_rating_container">
                                             <div class="rating_r rating_r_4 review_rating">
-                                                    
+                                                    @if($row->rating == 5)
                                                     <span class="fa fa-star checked"></span>
                                                     <span class="fa fa-star checked"></span>
                                                     <span class="fa fa-star checked"></span>
                                                     <span class="fa fa-star checked"></span>
                                                     <span class="fa fa-star checked"></span>
-                                                    
+                                                    @elseif($row->rating == 4)
                                                     <span class="fa fa-star checked"></span>
                                                     <span class="fa fa-star checked"></span>
                                                     <span class="fa fa-star checked"></span>
                                                     <span class="fa fa-star checked"></span>
                                                     <span class="fa fa-star "></span>
-                                                    
+                                                    @elseif($row->rating == 3)
                                                     <span class="fa fa-star checked"></span>
                                                     <span class="fa fa-star checked"></span>
                                                     <span class="fa fa-star checked"></span>
                                                     <span class="fa fa-star "></span>
                                                     <span class="fa fa-star "></span>
-                                                    
+                                                    @elseif($row->rating == 2)
                                                     <span class="fa fa-star checked"></span>
                                                     <span class="fa fa-star checked"></span>
                                                     <span class="fa fa-star "></span>
                                                     <span class="fa fa-star "></span>
                                                     <span class="fa fa-star "></span>
-                                                    
+                                                    @else
                                                     <span class="fa fa-star checked"></span>
                                                     <span class="fa fa-star "></span>
                                                     <span class="fa fa-star "></span>
                                                     <span class="fa fa-star "></span>
                                                     <span class="fa fa-star "></span>
-                                                    
+                                                    @endif
                                                 
                                             </div>
                                             <div class="review_time">{{ $row->review_date }}</div>
                                         </div>
-                                        <div class="review_text"><p style="text-align: justify;">.{{ substr($row->review,0,110) }}..</p></div>
+                                        <div class="review_text"><p style="text-align: justify;">{{ substr($row->review,0,110) }}..</p></div>
                                     </div>
                                 </div>
                             </div>
-                            
+                            @endforeach
                         </div>
                         <div class="reviews_dots"></div>
                     </div>
