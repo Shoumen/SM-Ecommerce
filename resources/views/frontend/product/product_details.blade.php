@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/styles/product_styles.css">
-<link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/styles/product_responsive.css">
+<link rel="stylesheet" type="text/css" href="{{ asset('public/frontend') }}/styles/product_responsive.css">
 <script src="{{ asset('js/share.js') }}"></script>
 
 @include('layouts.front_partial.collaps_nav')
@@ -118,7 +118,7 @@
 
 
 					<div class="order_info d-flex flex-row">
-						<form action="" method="post" id="add_to_cart">
+						<form action="{{ route('add.to.cart.quickview') }}" method="post" id="add_to_cart">
 							@csrf
 							<input type="hidden" name="id" value="{{$product->id}}">
 							@if($product->discount_price==NULL)
@@ -175,7 +175,7 @@
 								    <button class="btn btn-outline-info" type="submit"> <span class="loading d-none">....</span> Add to cart</button>
 								    @endif
 
-								    <a href="{{route('add.wishlist',$product->id)}}" class="btn btn-outline-primary" type="button">Add to wishlist</a>
+								    <a href="{{ route('add.wishlist',$product->id) }}" class="btn btn-outline-primary" type="button">Add to wishlist</a>
 								  </div>
 								</div>
 							</div>
@@ -426,7 +426,7 @@
 						<!-- Recently Viewed Item -->
 						<div class="owl-item">
 							<div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
-								<div class="viewed_image"><img src="{{ asset('files/product/'.$row->thumbnail) }}" alt="{{ $row->name }}"></div>
+								<div class="viewed_image"><img src="{{ asset('public/files/product/'.$row->thumbnail) }}" alt="{{ $row->name }}"></div>
 								<div class="viewed_content text-center">
 								@if($row->discount_price==NULL)
 		             <div class="viewed_price">{{ $setting->currency }}{{ $row->selling_price }}</div>

@@ -64,7 +64,7 @@ class CheckoutController extends Controller
 
     //__orderplace__
     public function OrderPlace(Request $request)
-    {   $aamarpay=DB::table('payment_gateway_bd')->first();
+    {
 
         if ($request->payment_type=="Hand cash") {
             $order=array();
@@ -100,7 +100,7 @@ class CheckoutController extends Controller
             $order_id=DB::table('orders')->insertGetId($order);
 
 
-            Mail::to($request->c_email)->send(new InvoiceMail($order));
+            // Mail::to($request->c_email)->send(new InvoiceMail($order));
 
             //order details
             $content=Cart::content();
@@ -127,113 +127,63 @@ class CheckoutController extends Controller
 
           //__aamarpay payment gateway  
         }elseif($request->payment_type=="Aamarpay"){
-         
+            $aamarpay=DB::table('payment_gateway_bd')->first();
             if($aamarpay->store_id==NULL){
                  $notification=array('messege' => 'Please setting your payment gateway', 'alert-type' => 'error');
                  return redirect()->back()->with($notification);
             }else{
                 if($aamarpay->status==1){
-                    $url = "'https://​sandbox​.aamarpay.com/jsonpost.php'"; 
+                    $url = 'https://secure.aamarpay.com/request.php'; // live url https://secure.aamarpay.com/request.php
                 }else{
-                    // $url = 'https://​sandbox​.aamarpay.com/jsonpost.php';
+                    $url = 'https://sandbox.aamarpay.com/request.php';
                 }
 
-        
+             $fields = array(
+                'store_id' => $aamarpay->store_id, //store id will be aamarpay,  contact integration@aamarpay.com for test/live id
+                'amount' => Cart::total(), //transaction amount
+                'payment_type' => 'VISA', //no need to change
+                'currency' => 'BDT',  //currenct will be USD/BDT
+                'tran_id' => rand(1111111,9999999), //transaction id must be unique from your end
+                'cus_name' => $request->c_name,  //customer name
+                'cus_email' => $request->c_email, //customer email address
+                'cus_add1' => $request->c_address,  //customer address
+                'cus_add2' => 'Mohakhali DOHS', //customer address
+                'cus_city' => $request->c_city,  //customer city
+                'cus_state' => 'Dhaka',  //state
+                'cus_postcode' => $request->c_zipcode, //postcode or zipcode
+                'cus_country' => $request->c_country,  //country
+                'cus_phone' => $request->c_phone, //customer phone number
+                'cus_fax' => $request->c_extra_phone,  //fax
+                'ship_name' => 'ship name', //ship name
+                'ship_add1' => 'House B-121, Road 21',  //ship address
+                'ship_add2' => 'Mohakhali',
+                'ship_city' => 'Dhaka', 
+                'ship_state' => 'Dhaka',
+                'ship_postcode' => '1212', 
+                'ship_country' => 'Bangladesh',
+                'desc' => 'payment description', 
+                'success_url' => route('success'), //your success route
+                'fail_url' => route('fail'), //your fail route
+                'cancel_url' => route('cancel'), //your cancel url
+                'opt_a' => $request->c_country,  //subtotal
+                'opt_b' => $request->c_city, //payment_type
+                'opt_c' => $request->c_phone,  //customer phone
+                'opt_d' => $request->c_address,
+                'signature_key' => $aamarpay->signature_key); //signature key will provided aamarpay, contact integration@aamarpay.com for test/live signature key
 
-            //  $fields = array(
-            //     'store_id' => 'aamarpaytest',
-            //     'amount' => "100", //transaction amount
-            //     'payment_type' => 'VISA', //no need to change
-            //     'currency' => 'BDT',  //currenct will be USD/BDT
-            //     'tran_id' => 'dfgfsg8fg87', //transaction id must be unique from your end
-            //     'cus_name' => $request->c_name,  //customer name
-            //     'cus_email' => $request->c_email, //customer email address
-            //     'cus_add1' => $request->c_address,  //customer address
-            //     'cus_add2' => 'Mohakhali DOHS', //customer address
-            //     'cus_city' => $request->c_city,  //customer city
-            //     'cus_state' => 'Dhaka',  //state
-            //     'cus_postcode' => $request->c_zipcode, //postcode or zipcode
-            //     'cus_country' => $request->c_country,  //country
-            //     'cus_phone' => $request->c_phone, //customer phone number
-            //     'cus_fax' => $request->c_extra_phone,  //fax
-            //     'ship_name' => 'ship name', //ship name
-            //     'ship_add1' => 'House B-121, Road 21',  //ship address
-            //     'ship_add2' => 'Mohakhali',
-            //     'ship_city' => 'Dhaka', 
-            //     'ship_state' => 'Dhaka',
-            //     'ship_postcode' => '1212', 
-            //     'ship_country' => 'Bangladesh',
-            //     'desc' => 'payment description', 
-            //     'success_url' => route('success'), //your success route
-            //     'fail_url' => route('fail'), //your fail route
-            //     'cancel_url' => route('cancel'), //your cancel url
-            //     'opt_a' => $request->c_country,  //subtotal
-            //     'opt_b' => $request->c_city, //payment_type
-            //     'opt_c' => $request->c_phone,  //customer phone
-            //     'opt_d' => $request->c_address,
-            //     'signature_key' => $aamarpay->signature_key
-            // );
-
-            $curl = curl_init();
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => 'https://​sandbox​.aamarpay.com/jsonpost.php',
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'POST',
-                CURLOPT_POSTFIELDS =>'{
-                  "store_id": "aamarpaytest",
-                  "tran_id": "123123ddttt555d173",
-                  "success_url": "route('success')",
-                  "fail_url": "http://www.merchantdomain.com/faile dpage.html",
-                  "cancel_url": "http://www.merchantdomain.com/can cellpage.html",
-                  "amount": "10.0",
-                  "currency": "BDT",
-                  "signature_key": "dbb74894e82415a2f7ff0ec3a97e4183",
-                  "desc": "Merchant Registration Payment",
-                  "cus_name": "Name",
-                  "cus_email": "payer@merchantcusomter.com",
-                  "cus_add1": "House B-158 Road 22",
-                  "cus_add2": "Mohakhali DOHS",
-                  "cus_city": "Dhaka",
-                  "cus_state": "Dhaka",
-                  "cus_postcode": "1206",
-                  "cus_country": "Bangladesh",
-                  "cus_phone": "+8801704",
-                  "type": "json"
-              }',
-                CURLOPT_HTTPHEADER => array(
-                  'Content-Type: application/json'
-                ),
-              ));
-
-              
-              $response = curl_exec($curl);
-              
-              curl_close($curl);
-             $res  = json_decode($response);
-            //  dd($res);
-
-            //     $fields_string = http_build_query($fields);
-
-              
+                $fields_string = http_build_query($fields);
          
-            //     $ch = curl_init();
-            //     curl_setopt($ch, CURLOPT_VERBOSE, true);
-            //     curl_setopt($ch, CURLOPT_URL, $url);  
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_VERBOSE, true);
+                curl_setopt($ch, CURLOPT_URL, $url);  
           
-            //     curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
-            //     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            //     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            // $url_forward = str_replace('"', '', stripslashes(curl_exec($curl))); 
-            //     curl_close($ch); 
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                $url_forward = str_replace('"', '', stripslashes(curl_exec($ch)));  
+                curl_close($ch); 
 
-                // $this->redirect_to_merchant($url_forward);
-
-                return redirect()->intended($res->payment_url);
+                $this->redirect_to_merchant($url_forward);
             }
              
             
@@ -252,7 +202,7 @@ class CheckoutController extends Controller
           </script></head>
           <body onLoad="closethisasap();">
           
-            <form name="redirectpost" method="post" action="<?php echo 'https://​sandbox​.aamarpay.com/jsonpost.php'.$url; ?>"></form>
+            <form name="redirectpost" method="post" action="<?php echo 'https://sandbox.aamarpay.com/'.$url; ?>"></form>
             <!-- for live url https://secure.aamarpay.com -->
           </body>
         </html>
