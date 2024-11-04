@@ -92,7 +92,7 @@
                         @endphp
                           <option value="">select parent</option>
                       </select>
-                    </div>
+                    </div> 
                   </div>
                   <div class="row">
                     <div class="form-group col-lg-6">

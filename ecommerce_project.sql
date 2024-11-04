@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 29, 2024 at 11:29 AM
+-- Generation Time: Oct 30, 2024 at 08:46 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -337,7 +337,7 @@ INSERT INTO `newsletters` (`id`, `email`, `created_at`, `updated_at`) VALUES
 
 CREATE TABLE `orders` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
   `c_name` varchar(255) DEFAULT NULL,
   `c_phone` varchar(255) DEFAULT NULL,
   `c_email` varchar(255) DEFAULT NULL,
@@ -369,8 +369,10 @@ CREATE TABLE `orders` (
 
 INSERT INTO `orders` (`id`, `user_id`, `c_name`, `c_phone`, `c_email`, `c_country`, `c_zipcode`, `c_address`, `c_extra_phone`, `c_city`, `subtotal`, `total`, `coupon_code`, `coupon_discount`, `after_discount`, `payment_type`, `tax`, `shipping_charge`, `order_id`, `status`, `date`, `month`, `year`, `created_at`, `updated_at`) VALUES
 (1, 3, 'Customer', '019xxxxxxx', 'shoumen853@gmail.com', 'Bangladesh', NULL, 'Bijayrampur,Manirampur,jashore', NULL, 'Manirampur', '0.00', '0.00', NULL, NULL, NULL, 'Aamarpay', '0', '0', '597038', 1, '23-04-2024', 'April', '2024', NULL, NULL),
-(2, 3, 'Customer', '019xxxxxxx', 'shoumen853@gmail.com', 'Bangladesh', NULL, 'Bijayrampur,Manirampur,jashore', NULL, 'Manirampur', '0.00', '0.00', NULL, NULL, NULL, 'Aamarpay', '0', '0', '712713', 1, '23-04-2024', 'April', '2024', NULL, NULL),
-(3, 3, 'Customer', '019xxxxxxx', 'shoumen853@gmail.com', 'Bangladesh', NULL, 'Bijayrampur,Manirampur,jashore', NULL, 'Manirampur', '0.00', '0.00', NULL, NULL, NULL, 'Aamarpay', '0', '0', '744659', 2, '23-04-2024', 'April', '2024', NULL, NULL);
+(2, 3, 'Customer', '019xxxxxxx', 'shoumen853@gmail.com', 'Bangladesh', NULL, 'Bijayrampur,Manirampur,jashore', NULL, 'Manirampur', '0.00', '0.00', NULL, NULL, NULL, 'Aamarpay', '0', '0', '712713', 2, '23-04-2024', 'April', '2024', NULL, NULL),
+(3, 3, 'Customer', '019xxxxxxx', 'shoumen853@gmail.com', 'Bangladesh', NULL, 'Bijayrampur,Manirampur,jashore', NULL, 'Manirampur', '0.00', '0.00', NULL, NULL, NULL, 'Aamarpay', '0', '0', '744659', 2, '23-04-2024', 'April', '2024', NULL, NULL),
+(4, 5, 'customer2', '019xxxxxxx', 'customer23@gmail.com', 'Bangladesh', NULL, 'Bijayrampur,Manirampur,jashore', NULL, 'Manirampur', '0.00', '0.00', NULL, NULL, NULL, 'Aamarpay', '0', '0', '699819', 1, '04-05-2024', 'May', '2024', NULL, NULL),
+(5, 5, 'customer2', '019xxxxxxx', 'customer23@gmail.com', 'Bangladesh', NULL, 'Bijayrampur,Manirampur,jashore', NULL, 'Manirampur', '0.00', '0.00', NULL, NULL, NULL, 'Aamarpay', '0', '0', '101215', 2, '04-05-2024', 'May', '2024', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -552,7 +554,7 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `category_id`, `subcategory_id`, `childcategory_id`, `brand_id`, `pickup_point_id`, `name`, `slug`, `code`, `unit`, `tags`, `color`, `size`, `video`, `purchase_price`, `selling_price`, `discount_price`, `stock_quantity`, `warehouse`, `description`, `thumbnail`, `images`, `featured`, `today_deal`, `status`, `product_slider`, `product_views`, `flash_deal_id`, `cash_on_delivery`, `admin_id`, `trendy`, `date`, `month`, `created_at`, `updated_at`) VALUES
-(3, 7, 21, 26, 19, 2, 'Morto Bike', 'morto-bike', 'bike102', '23', 'bike,suzuki,motorbike', 'black,red,green', NULL, 'OerLuWsgLfU', '230000', '260000', '258000', '3', 1, 'This is the 2023 new version Suzuki Gixxer 150 ABS. What has changed in this version of the bike, I will know some details including the current market price of the bike.', 'morto-bike.jpg', '[\"1794218654508036.jpg\",\"1794218654547659.jpg\",\"1794218654583926.jpg\"]', 1, 1, 1, '1', 10, NULL, NULL, 1, NULL, '22-03-2024', 'March', NULL, '2024-04-23 03:41:03'),
+(3, 7, 21, 26, 19, 2, 'Morto Bike', 'morto-bike', 'bike102', '23', 'bike,suzuki,motorbike', 'black,red,green', NULL, 'OerLuWsgLfU', '230000', '260000', '258000', '3', 1, 'This is the 2023 new version Suzuki Gixxer 150 ABS. What has changed in this version of the bike, I will know some details including the current market price of the bike.', 'morto-bike.jpg', '[\"1794218654508036.jpg\",\"1794218654547659.jpg\",\"1794218654583926.jpg\"]', 1, 1, 1, '1', 16, NULL, NULL, 1, NULL, '22-03-2024', 'March', NULL, '2024-05-15 07:00:15'),
 (4, 2, 4, 9, 1, 2, 'Watch', 'watch', 'watch12', '12', NULL, 'black,red,green', '1,2,4,5', 'YjXG1ZeQ2k', '30000', '45000', '43000', '5', 1, 'Gerald Bemon\r\nHorlogerie & Joaillerie\r\nFilm publicitaire', 'watch.jpg', '[\"1794218807883909.jpeg\",\"1794218807936030.jpeg\",\"1794218807983377.jpeg\"]', 1, 1, 1, NULL, 2, NULL, NULL, 1, NULL, '22-03-2024', 'March', NULL, '2024-04-01 02:12:16'),
 (5, 4, 12, 23, 1, 2, 'Beck Kramer', 'beck-kramer', 'Ut distinctio Labor', 'Sed debitis vel dist', 'Ratione expedita ut', 'Atque neque necessit', 'Dolor labore quas ut', 'Mollit quaerat ut au', '579', '800', '700', '339', 1, 'Voluptate duis quas', 'beck-kramer.jpg', '[\"1794218888871875.png\",\"1794218889045669.png\"]', 1, 1, 1, '1', 5, NULL, NULL, 1, NULL, '22-03-2024', 'March', NULL, '2024-03-29 10:26:07'),
 (6, 5, 14, NULL, 1, 2, 'Justin Robbins', 'justin-robbins', 'Molestiae eum magni', 'Sed in rerum est odi', 'Veniam esse laboru', 'Non consectetur exp', 'Enim maiores vel vel', 'Voluptatem alias aut', '460', '900', '700', '726', 1, 'Consequuntur beatae', 'justin-robbins.jpg', '[\"1794218951499726.jpg\"]', 1, 1, 1, NULL, 2, NULL, NULL, 1, '1', '22-03-2024', 'March', NULL, '2024-03-29 10:22:48'),
@@ -803,10 +805,11 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `phone`, `is_admin`, `avatar`, `provider`, `provider_id`, `access_token`, `category`, `product`, `offer`, `order`, `blog`, `pickup`, `ticket`, `contact`, `report`, `setting`, `userrole`, `role_admin`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'Admin', 'admin@gmail.com', NULL, '$2y$10$8vdPXCdVIDOhpWmoAWL.Wumt9tGdkGTFNrFEX8yPS.6n7KCZQ7zPu', NULL, 1, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, '1', NULL, NULL, NULL),
-(2, 'Shoumen Mondal', 'shoumen@gmail.com', NULL, '$2y$12$JWNuxxhlU.c5r9DrOkGPvesXdfRHjwiJJQCiUk0NozSbKRyqxQJKO', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(2, 'Shoumen Mondal', 'shoumen@gmail.com', NULL, '$2y$12$JWNuxxhlU.c5r9DrOkGPvesXdfRHjwiJJQCiUk0NozSbKRyqxQJKO', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, NULL, NULL, '1', NULL, NULL, NULL),
 (3, 'Customer', 'customer@gmail.com', NULL, '$2y$12$jZ8.j0wl8FXqJNWzAT7xPukoV30GiIbJIy4t3G0Zti3H97NOno57G', NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, '2024-03-30 08:26:21', '2024-03-30 08:26:21'),
 (4, 'Sangita Biswas', 'sangita@gmail.com', NULL, '$2y$12$ntcZmy9w/dlXS9fduQsTmOZLIR7Z097j.hcGFARVlPVxdWNyKndRu', NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, '2024-03-30 08:26:58', '2024-03-30 08:26:58'),
-(5, 'customer2', 'customer23@gmail.com', NULL, '$2y$12$LwIGL3GRJseOBB3UFjswxOa0MGlw3HZpBzAL5nQrVnWcb32UVlLby', NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, '2024-04-24 03:50:17', '2024-04-24 03:50:17');
+(5, 'customer2', 'customer23@gmail.com', NULL, '$2y$12$LwIGL3GRJseOBB3UFjswxOa0MGlw3HZpBzAL5nQrVnWcb32UVlLby', NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, '2024-04-24 03:50:17', '2024-04-24 03:50:17'),
+(6, 'Shoumen', 'shoumen123@gmail.com', NULL, '$2y$12$Tn7aJUm1a3uhxHxbAPMZc.mJqR3rNfhhjwLU9sUmpDMtTOIutNBcu', NULL, 1, NULL, NULL, NULL, NULL, 1, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1142,7 +1145,7 @@ ALTER TABLE `newsletters`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `order_details`
@@ -1232,7 +1235,7 @@ ALTER TABLE `tickets`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `warehouses`

@@ -142,10 +142,18 @@ class ProfileController extends Controller
     //__cuistoomer oder details
     public function ViewOrder($id)
     {
+        $locations = [
+            ['Dhanmondi 2', 23.738555, 90.379269],
+            ['Jagannath University', 23.708399, 90.410877],
+            // ['CMM COURT ', 23.712842, 90.412089],
+            // ['Ahsan Manzil', 23.709121, 90.406835],
+            // ['Mohammadpur', 23.770103, 90.352105],
+            // ['Rajkot', 23.783270, 90.401269],
+        ];
         $order=DB::table('orders')->where('id',$id)->first();
         //$order=Order::findorfail($id);
         $order_details=DB::table('order_details')->where('order_id',$id)->get();
 
-        return view('user.order_details',compact('order','order_details'));
+        return view('user.order_details',compact('order','order_details', 'locations'));
     }
 }

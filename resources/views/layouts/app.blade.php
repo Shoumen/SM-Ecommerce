@@ -91,7 +91,7 @@
                                                    </div>
                                                </form>
                                                <div class="form-group">
-                                                 <a href="#" class="btn btn-danger btn-sm btn-block text-white">Login WIth Google</a>
+                                                 <a href="{{ route('social.oauth', 'google') }}" class="btn btn-danger btn-sm btn-block text-white">Login WIth Google</a>
                                                 </div>
                                            </div>
                                         </ul>
@@ -117,7 +117,7 @@
                     <!-- Logo -->
                     <div class="col-lg-2 col-sm-3 col-3 order-1">
                         <div class="logo_container">
-                            <div class="logo"><a href="{{ url('/') }}">SM Shop</a></div>
+                            <div class="logo"><a href="{{ url('/') }}">LearnHun</a></div>
                         </div>
                     </div>
 
@@ -156,7 +156,7 @@
                     <div class="col-lg-4 col-9 order-lg-3 order-2 text-lg-left text-right">
                         <div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
                             <div class="wishlist d-flex flex-row align-items-center justify-content-end">
-                                <div class="wishlist_icon"><img src="{{ asset('frontend') }}/images/heart.png" alt=""></div>
+                                <div class="wishlist_icon"><img src="{{ asset('public/frontend') }}/images/heart.png" alt=""></div>
                                 <div class="wishlist_content">
                                     <div class="wishlist_text"><a href="{{ route('wishlist') }}">Wishlist</a></div>
                                     <div class="wishlist_count">{{ $wishlist }}</div>
@@ -167,7 +167,7 @@
                             <div class="cart">
                                 <div class="cart_container d-flex flex-row align-items-center justify-content-end">
                                     <div class="cart_icon">
-                                        <img src="{{ asset('frontend') }}/images/cart.png" alt="">
+                                        <img src="{{ asset('public/frontend') }}/images/cart.png" alt="">
                                         <div class="cart_count"><span class="cart_qty"></span></div>
                                     </div>
                                     <div class="cart_content">
@@ -253,8 +253,8 @@
                             <li><a href="{{ route('home') }}">My Account</a></li>
                             <li><a href="{{ route('order.tracking') }}">Order Tracking</a></li>
                             <li><a href="{{ route('wishlist') }}">Wish List</a></li>
-                            <li><a href="#">Our Blog</a></li>
-                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="{{ route('blog') }}">Our Blog</a></li>
+                            <li><a href="{{ route('contact') }}">Contact Us</a></li>
                             <li><a href="#">Become a vendor</a></li>
                         </ul>
                     </div>
@@ -289,6 +289,7 @@
             </div>
         </div>
     </div>
+</div>
 
 <script src="{{ asset('frontend') }}/js/jquery-3.3.1.min.js"></script>
 <script src="{{ asset('frontend') }}/styles/bootstrap4/popper.js"></script>
