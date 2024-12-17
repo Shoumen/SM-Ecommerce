@@ -14,6 +14,7 @@ use App\Mail\InvoiceMail;
 class CheckoutController extends Controller
 {
 
+
     //__checkout page
     public function Checkout()
     {
@@ -100,7 +101,7 @@ class CheckoutController extends Controller
             $order_id=DB::table('orders')->insertGetId($order);
 
 
-            // Mail::to($request->c_email)->send(new InvoiceMail($order));
+            Mail::to($request->c_email)->send(new InvoiceMail($order));
 
             //order details
             $content=Cart::content();
@@ -144,6 +145,7 @@ class CheckoutController extends Controller
                 'payment_type' => 'VISA', //no need to change
                 'currency' => 'BDT',  //currenct will be USD/BDT
                 'tran_id' => rand(1111111,9999999), //transaction id must be unique from your end
+
                 'cus_name' => $request->c_name,  //customer name
                 'cus_email' => $request->c_email, //customer email address
                 'cus_add1' => $request->c_address,  //customer address
@@ -213,9 +215,8 @@ class CheckoutController extends Controller
 
     //__paymentgateway extra method
     public function success(Request $request){
-
-            $order=array();
-            $order['user_id']=Auth::id();
+        $order=array();
+        $order['user_id']=Auth::id();
             $order['c_name']=$request->cus_name;
             $order['c_phone']=$request->opt_c;
             $order['c_country']=$request->opt_a;
@@ -240,11 +241,12 @@ class CheckoutController extends Controller
             $order['date']=date('d-m-Y');
             $order['month']=date('F');
             $order['year']=date('Y');
-
+            
+            // dd($order);
             $order_id=DB::table('orders')->insertGetId($order);
 
 
-            Mail::to(Auth::user()->email)->send(new InvoiceMail($order));
+            // Mail::to(Auth::user()->email)->send(new InvoiceMail($order));
 
             //order details
             $content=Cart::content();
@@ -275,6 +277,7 @@ class CheckoutController extends Controller
     public function fail(Request $request){
         return $request;
     }
+
 
 
 }

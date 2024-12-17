@@ -35,6 +35,7 @@
 		                	Total: {{ $order->total }} {{ $setting->currency }}<br>
 
 		                </div>
+						
 		            </div>
 		        </div>
 		        <div class="col-md-8">

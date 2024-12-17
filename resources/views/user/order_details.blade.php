@@ -1,5 +1,10 @@
 @extends('layouts.app')
 @section('content')
+<style type="text/css">
+        #map {
+          height: 400px;
+        }
+    </style>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-4">
@@ -32,8 +37,10 @@
                 	Total: {{ $order->total }} {{ $setting->currency }}<br>
 
                 </div>
+                <div id="map"></div>
+                  
                 <div class="card-body">
-                   <h4>My Order</h4>
+                   <h4>My Order hhh</h4>
                    <div>
                        <table class="table">
                          <thead>
@@ -70,4 +77,42 @@
         </div>
     </div>
 </div><hr>
+<script type="text/javascript">
+        function initMap() {
+            const myLatLng = { lat: 23.80212, lng: 90.41349 };
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 11,
+                center: myLatLng,
+            });
+  
+            var locations = {{ Js::from($locations) }};
+  
+            var infowindow = new google.maps.InfoWindow();
+  
+            var marker, i;
+              
+            for (i = 0; i < locations.length; i++) {  
+                  marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                    map: map
+                  });
+                    
+                  google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                    return function() {
+                      infowindow.setContent(locations[i][0]);
+                      infowindow.open(map, marker);
+                    }
+                  })(marker, i));
+  
+            }
+        }
+  
+        window.initMap = initMap;
+    </script>
+  
+    <script type="text/javascript"
+        src="https://maps.google.com/maps/api/js?key={{ env('GOOGLE_MAP_KEY') }}&callback=initMap" ></script>
+  
+
+
 @endsection
